@@ -90,7 +90,7 @@ def create_submit_gridpack_generation_lxbatch(FullTriMass):
         submitName.write('./gridpack_generation.sh  %s  %s  8nh\n'%(DirName,AddressName))
         submitName.close()
 
-        selfBatchSubmit.write('bsub -q 8nh -J tosubmit_%s.sh < %s \n'%(DirName,DirName))
+        selfBatchSubmit.write('bsub -q 8nh -J   %s < tosubmit_%s.sh \n'%(DirName,DirName))
     selfBatchSubmit.close()
 
 
