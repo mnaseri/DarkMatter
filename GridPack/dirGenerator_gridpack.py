@@ -94,6 +94,13 @@ def create_submit_gridpack_generation_lxbatch(FullTriMass):
     selfBatchSubmit.close()
 
 
+def CheckList_GridPack(FullTriMass):
+    checkList=open("create_ChechList.sh","w")
+    for TriMass in FullTriMass:
+        DirName,AddressName=TriName(TriMass)
+        checkList.write('ls %s_tarball.tar.xz\n'%DirName)
+    checkList.close()
+
 
 FullTriMass=[
 ['800','300','330'],
@@ -149,6 +156,7 @@ for TriMass in FullTriMass:
 create_gridpack_generation_script(FullTriMass)
 create_submit_gridpack_generation(FullTriMass)
 create_submit_gridpack_generation_lxbatch(FullTriMass)
+CheckList_GridPack(FullTriMass)
 
 
 
