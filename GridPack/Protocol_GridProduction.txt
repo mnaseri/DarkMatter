@@ -42,9 +42,9 @@ More information can be found here:
 https://twiki.cern.ch/twiki/bin/viewauth/CMS/QuickGuideMadGraph5aMCatNLO
 
 
-======= ======= ======= ======= ======= ======= ======= ======= ======= ======= ======= ======= 
-======= Steps to producing the Gridpack/LHE outside of the CMSSW Area
-======= ======= ======= ======= ======= ======= ======= ======= ======= ======= ======= ======= 
+======= ======= ======= ======= ======= ======= ======= ======= =======  =======
+======= Steps to produce the Gridpack/LHE file outside of the CMSSW Area =======
+======= ======= ======= ======= ======= ======= ======= ======= =======  =======
 To get the LHE files wihout using the CMSSW do the following:
 
 To generate mixed signature for the
