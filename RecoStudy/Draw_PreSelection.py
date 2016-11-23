@@ -83,10 +83,11 @@ def MakePlot(FileName,categoriy,HistName,Xaxis,Info,RB_,channel):
 
     W=file.Get(categoriy).Get("W")
     W.Rebin(RB_)
-#    W.Scale(0.7)
+    
 
     TT=file.Get(categoriy).Get("TT")
     TT.Rebin(RB_)
+    
 
 
 
@@ -113,6 +114,14 @@ def MakePlot(FileName,categoriy,HistName,Xaxis,Info,RB_,channel):
     Data.SetTitle("")
     Data.GetYaxis().SetTitle("Events")
 
+
+#    Signal=file.Get(categoriy).Get("Codex1400")
+#    Signal.Scale(.1)
+#    Signal.Rebin(RB_)
+#    Signal.SetLineStyle(11)
+#    Signal.SetLineWidth(3)
+#    Signal.SetLineColor(4)
+#    Signal.SetMarkerColor(4)
 
 
     QCD.SetFillColor(ROOT.TColor.GetColor(408, 106, 154))
@@ -176,7 +185,7 @@ def MakePlot(FileName,categoriy,HistName,Xaxis,Info,RB_,channel):
     errorBand.SetLineWidth(1)
 
     pad1 = ROOT.TPad("pad1","pad1",0,0.35,1,1)
-    pad1.SetLogy()
+#    pad1.SetLogy()
     pad1.Draw()
     pad1.cd()
     pad1.SetFillColor(0)
@@ -195,16 +204,18 @@ def MakePlot(FileName,categoriy,HistName,Xaxis,Info,RB_,channel):
     pad1.SetFrameBorderSize(10)
 
     Data.GetXaxis().SetLabelSize(0)
-    Data.SetMaximum(Data.GetMaximum()*10000)
-#    Data.SetMaximum(Data.GetMaximum()*3)
-    Data.SetMinimum(1)
+#    Data.SetMaximum(Data.GetMaximum()*10000)
+    Data.SetMaximum(Data.GetMaximum()*3)
+    Data.SetMinimum(.2)
     Data.Draw("e")
     stack.Draw("histsame")
     errorBand.Draw("e2same")
     Data.Draw("esame")
+#    Signal.Draw("histsame")
 
     legende=make_legend()
     legende.AddEntry(Data,"Observed","elp")
+#    legende.AddEntry(Signal,"Codex_1400","l")
     legende.AddEntry(TT,"t#bar{t}+jets","f")
     legende.AddEntry(SingleT,"SingleTop","f")
     legende.AddEntry(DYS,"DY #rightarrowll ","f")
@@ -299,7 +310,7 @@ def MakePlot(FileName,categoriy,HistName,Xaxis,Info,RB_,channel):
     ROOT.gPad.RedrawAxis()
 
     c.Modified()
-    c.SaveAs("_plot"+FileName+".pdf")
+    c.SaveAs("_plot"+FileName.replace('TotalRootForLimit_PreSelection_MuJet','').replace('.root','')+".pdf")
     #       c.SaveAs("mvis"+categoriy+".png")
 
 
@@ -311,35 +322,50 @@ def MakePlot(FileName,categoriy,HistName,Xaxis,Info,RB_,channel):
 
 
 FileNamesInfo=[
-               ["_tmass_JetMet","M_{T}(jet,MET) (GeV)","",1],
+               ["_tmass_JetMet","M_{T}(jet,MET) (GeV)","",5],
                ["_tmass_LQMet","M_{T}(LQ,MET)  (GeV)","",5],
                ["_LepPt","lepton p_{T} (GeV)","",5],
                ["_LepEta","lepton #eta ","",5],
                ["_JetPt","jet p_{T} (GeV)","",5],
                ["_JetEta","jet #eta ","",5],
-               ["_nVtx","# of vertex","",1],
-               ["_nVtx_NoPU","# of vertex before PU reweighting","",1],
+#               ["_nVtx","# of vertex","",1],
+#               ["_nVtx_NoPU","# of vertex before PU reweighting","",1],
                ["_MET","MET  (GeV)","",5],
                ["_LQMass","M_{LQ}   (GeV)","",5],
-               ["_tmass_MuMet","M_{T}(#mu,MET) (GeV)","",2],
+               ["_tmass_MuMet","M_{T}(#mu,MET) (GeV)","",5],
                ["_dPhi_Jet_Met","#Delta#phi (jet,MET)","",5],
                ["_dPhi_Mu_Met","#Delta#phi (#mu,MET)","",5],
+               ["_LQEta","#eta_{LQ}","",10],
+#               ["_numTau","_numTau","",1],
+#               ["_numElectron","_numElectron","",1],
+#               ["_numBJet","_numBJet","",1],
+#               ["_numZboson","_numZboson","",1],
                
                ]
 
+
+
+
 #def MakePlot(FileName,categoriy,HistName,Xaxis,Info,RB_,channel):
 
-
 #PlotName= ["_tmass_MuMet","_tmass_JetMet","_tmass_LQMet","_LepEta","_LepPt","_JetPt","_JetEta","_MET","_LQMass","_dPhi_Jet_Met","_dPhi_Mu_Met","_nVtx","_nVtx_NoPU"]
+
+#PlotName= ["_tmass_MuMet","_tmass_JetMet","_tmass_LQMet","_LepEta","_LepPt","_LepIso","_JetPt","_JetEta","_MET","_LQMass","_dPhi_Jet_Met","_dPhi_Mu_Met","_nVtx","_nVtx_NoPU"]
 
 #Isolation=["_Iso", "_AntiIso","_Total"]
 Isolation=["_Iso"]
 #MT=["_NoMT", "_LowMT","_HighMT"]
+#MT=["_NoMT","_HighMT"]
+##MT= ["_HighMT","_WRegionMT"]
+##JPT=["_LowDPhi", "_HighDPhi","_RelaxDphi"];
+#JPT=["_HighDPhi"];
+##DR=["_dRMore","_dRLess","_dRRelax"]
+lqEta= ["_TotEta"];
+region= ["", "_ttbarCR","_DYCR"]
+
 MT=["_NoMT","_HighMT"]
-#MT= ["_HighMT","_WRegionMT"]
-#JPT=["_LowDPhi", "_HighDPhi","_RelaxDphi"];
-JPT=["_HighDPhi"];
-#DR=["_dRMore","_dRLess","_dRRelax"]
+JPT=[ "_HighDPhi"];
+#region= ["","_DYCR"]
 
 #for NormMC in PlotName:
 for i in range(0,len(FileNamesInfo)):
@@ -352,10 +378,13 @@ for i in range(0,len(FileNamesInfo)):
     for iso in Isolation:
         for mt in MT:
             for jpt in JPT:
-                    FileName="TotalRootForLimit_PreSelection_"+"MuJet"+NormMC+mt+jpt+iso+".root"
-                    Info=NormMC+mt+jpt+iso
-                    print "---->", FileName
-                    MakePlot(FileName,"MuJet","",axisName,Info,Bin,"")
+                for etalq in lqEta:
+                    for reg in region:
+                    
+                        FileName="TotalRootForLimit_PreSelection_"+"MuJet"+NormMC+mt+jpt+etalq+reg+iso+".root"
+                        Info=NormMC+mt+jpt+etalq+reg+iso
+                        print "---->", FileName
+                        MakePlot(FileName,"MuJet","",axisName,Info,Bin,"")
 
 
 

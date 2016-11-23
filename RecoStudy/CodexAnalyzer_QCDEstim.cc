@@ -68,6 +68,8 @@ int main(int argc, char** argv) {
         std::string ROOTLoc= "/Users/abdollah1/GIT_abdollah110/DarkMatter/ROOT80X/";
         vector<float> DY_Events = DY_HTBin(ROOTLoc);
         vector<float> W_Events = W_HTBin(ROOTLoc);
+        //        vector<float> W_EventsNLO = W_PTBinNLO(ROOTLoc); //This is for the NLO samples (as the stat is too low we do not use them)
+        vector<float> W_EventsNLO = W_HTBin(ROOTLoc);
         
         /////////////////////////   General Info
         Run_Tree->SetBranchAddress("isData", &isData);
@@ -171,7 +173,7 @@ int main(int argc, char** argv) {
         float WSF_etau=1.0;
         float MuMass= 0.10565837;
         float eleMass= 0.000511;
-        float LeptonPtCut_=50;
+        float LeptonPtCut_=60;
         float TauPtCut_=20;
         float JetPtCut=50;
 //        float JetPtCut=50;
@@ -193,6 +195,8 @@ int main(int argc, char** argv) {
             fflush(stdout);
             
             if (isData && (metFilters!=0)) continue;
+            std::vector<string> HistNamesFilled;
+            HistNamesFilled.clear();
             
             
             //###############################################################################################
@@ -222,7 +226,7 @@ int main(int argc, char** argv) {
             
             if (!isData){
                 
-                if (HistoTot) LumiWeight = weightCalc(HistoTot, InputROOT, genHT, W_Events, DY_Events);
+                if (HistoTot) LumiWeight = weightCalc(HistoTot, InputROOT, genHT,200, W_Events, DY_Events,W_EventsNLO);
                 GetGenWeight=genWeight;
                 
                 int puNUmmc=int(puTrue->at(0)*10);
@@ -479,8 +483,11 @@ int main(int argc, char** argv) {
                                                         
                                                         float FullWeight = TotalWeight;
                                                         std::string FullStringName = MT_Cat[imt] + jetMetPhi_Cat[jpt]+ iso_Cat[iso] ;
-                                                        
-                                                        
+                                                
+                                                if (!( std::find(HistNamesFilled.begin(), HistNamesFilled.end(), FullStringName) != HistNamesFilled.end())){
+                                                    HistNamesFilled.push_back(FullStringName);
+                                                    
+                                                    
                                                         plotFill(CHL+"_tmass_MuMet"+FullStringName,tmass_MuMet,100,0,500,FullWeight);
                                                         plotFill(CHL+"_tmass_JetMet"+FullStringName,tmass_JetMet,100,0,500,FullWeight);
                                                         plotFill(CHL+"_tmass_LQMet"+FullStringName,tmass_LQMet,100,0,500,FullWeight);
@@ -497,7 +504,7 @@ int main(int argc, char** argv) {
                                                         plotFill(CHL+"_LQMass"+FullStringName,LQ.M(),200,0,1000,FullWeight);
                                                         plotFill(CHL+"_dPhi_Jet_Met"+FullStringName,deltaPhi(Jet4Momentum.Phi(),pfMETPhi),200,0,4,FullWeight);
                                                         plotFill(CHL+"_dPhi_Mu_Met"+FullStringName,deltaPhi(Mu4Momentum.Phi(),pfMETPhi),200,0,4,FullWeight);
-                                                
+                                                }
                                                
                                         }
                                     }

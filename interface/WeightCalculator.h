@@ -260,7 +260,7 @@ float weightCalc(TH1F *Histo,std::string outputName , float genHT , float WPt, v
     
     
     float LOtoNLO_DY = 1.230888662;
-        float LOtoNLO_W = 1.213783784;
+    float LOtoNLO_W = 1.213783784;
 //    float LOtoNLO_W = 1;  // Now we have pt dependent SF
     //    float luminosity=2154;
     //    float luminosity=    3990;
