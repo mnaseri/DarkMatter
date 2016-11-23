@@ -1,0 +1,78 @@
+producing the private sample can either start from a Pythia gen fragmnet or LHE files or Gridpack.
+Here we start with Gridpack (Starting from LHE files would be very similar)
+
+=========== Step1
+CMSSW_7_1_21_patch1
+In this step we need to submit jobs via crab. The input would be the gridpacks. The output would the pLHW or wmLHE files which will be piblished in the eos area.
+The needed files are as following:
+
+a) Gridpacks:  Codex_LQ2000_900_990_gen2_tarball.tar.xz
+b) crab configuration file (we use this one to submit multiple jobs, i.e. as multicrab) crab_Step1_GridPackToLHE.py
+c) wmLHE config file: wmLHE_DM_LQ_1400_600_660_cfg.py where you put the gridpack file name there as well
+
+After having all the above files, we need to submit the multicrab jobs by jusy running the crab config file:
+python multicrab_Step1_GridPackToLHE.py
+
+
+The required files for this step are:
+multicrab_Step1_GridPackToLHE.py
+wmLHE_DM_LQ_2000_900_990_cfg.py, ....
+
+ 
+=========== Step2
+CMSSW_7_1_21_patch1
+In this step we will make the GEN-SIM from the current wmLHE published samples:
+python multicrab_Step2_GenSim_cfg.py 
+
+The other required files for this step is:
+GEN-SIM_cfg.py
+This file can be produced by issuing the folloiwng command
+cmsDriver.py Configuration/GenProduction/python/fragment.py --filein file:LHE.root --fileout file:GEN-SIM.root --mc --eventcontent RAWSIM --customise SLHCUpgradeSimulations/Configuration/postLS1Customs.customisePostLS1,Configuration/DataProcessing/Utils.addMonitoring --datatier GEN-SIM --conditions MCRUN2_71_V1::All --beamspot Realistic50ns13TeVCollision --step GEN,SIM --magField 38T_PostLS1 --python_filename GEN-SIM_cfg.py --no_exec -n -1
+
+the fragment.py depends on the analysis and signal model. For this analysis we use Madgraph:
+https://github.com/cms-sw/genproductions/blob/master/python/ThirteenTeV/Hadronizer_TuneCUETP8M1_13TeV_generic_LHE_pythia8_cff.py
+
+which one should put it in the Configuration/GenProduction/python directory
+
+
+
+=========== Step3
+CMSSW_8_0_14
+in this step we will make DIGI-RECO-1 from GEN-SIM root file:
+
+python  multicrab_Step3_DR1_cfg.py
+
+The other required files for this step is:
+DIGI-RECO_1_cfg.py
+This file can be produced by issuing the folloiwng command:
+cmsDriver.py step1 --filein  file:GEN-SIM.root --fileout file:DIGI-RECO_step1.root  --pileup_input "dbs:/Neutrino_E-10_gun/RunIISpring15PrePremix-PU2016_80X_mcRun2_asymptotic_v14-v2/GEN-SIM-DIGI-RAW" --mc --eventcontent PREMIXRAW --datatier GEN-SIM-RAW --conditions 80X_mcRun2_asymptotic_v14 --step DIGIPREMIX_S2,DATAMIX,L1,DIGI2RAW,HLT:25ns10e33_v2 --nThreads 4 --datamix PreMix --era Run2_2016 --python_filename DIGI-RECO_1_cfg.py --no_exec --customise Configuration/DataProcessing/Utils.addMonitoring -n -1
+
+
+=========== Step4
+CMSSW_8_0_14
+in this step we will make DIGI-RECO-2(AOD) from DIGI-RECO-1 root file:
+
+python  multicrab_Step4_DR2_cfg.py
+
+The other required files for this step is:
+DIGI-RECO_2_cfg.py
+This file can be produced by issuing the folloiwng command:
+cmsDriver.py step1 --filein  file:GEN-SIM.root --fileout file:DIGI-RECO_step1.root  --pileup_input "dbs:/Neutrino_E-10_gun/RunIISpring15PrePremix-cmsDriver.py step2 --filein file:DIGI-RECO_step1.root --fileout file:DIGI-RECO.root --mc --eventcontent AODSIM,DQM --runUnscheduled --datatier AODSIM,DQMIO --conditions 80X_mcRun2_asymptotic_v14 --step RAW2DIGI,RECO,EI,DQM:DQMOfflinePOGMC --nThreads 4 --era Run2_2016 --python_filename DIGI-RECO_2_cfg.py --no_exec --customise Configuration/DataProcessing/Utils.addMonitoring -n -1
+
+
+
+=========== Step5
+CMSSW_8_0_14
+in this step we will make MiniAOD from AOD root file:
+
+python  multicrab_Step5_MiniAODv2_cfg.py
+
+The other required files for this step is:
+MiniAODv2_1_cfg.py
+This file can be produced by issuing the folloiwng command:
+cmsDriver.py step1 --filein file:DIGI-RECO.root --fileout file:MiniAODv2.root --mc --eventcontent MINIAODSIM --runUnscheduled --datatier MINIAODSIM --conditions 80X_mcRun2_asymptotic_v14 --step PAT --era Run2_2016 --python_filename MiniAODv2_1_cfg.py --no_exec --customise Configuration/DataProcessing/Utils.addMonitoring -n -1
+
+
+
+
+
