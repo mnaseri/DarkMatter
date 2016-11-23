@@ -259,9 +259,10 @@ float weightCalc(TH1F *Histo,std::string outputName , float genHT , float WPt, v
     //    cout<<"--->  Check Name is "<<newOut<<"\n";
     
     
-    float LOtoNLO_DY = 1.230888662;
-    float LOtoNLO_W = 1.213783784;
-//    float LOtoNLO_W = 1;  // Now we have pt dependent SF
+//    float LOtoNLO_DY = 1.230888662;
+    float LOtoNLO_DY = 1; // Now we boson have pt dependent SF
+//    float LOtoNLO_W = 1.213783784;
+    float LOtoNLO_W = 1;  // Now we boson have pt dependent SF
     //    float luminosity=2154;
     //    float luminosity=    3990;
     //    float luminosity=    6260;

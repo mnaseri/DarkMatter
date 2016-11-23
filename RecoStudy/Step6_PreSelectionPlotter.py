@@ -308,12 +308,12 @@ if __name__ == "__main__":
 
 #    Isolation=["_Iso", "_AntiIso","_Total"]
     Isolation=["_Iso"]
-#    MT=["_NoMT","_LowMT","_HighMT"]
-    MT= ["_NoMT","_HighMT"]
+    MT=["_NoMT"]
+#    MT= ["_NoMT","_LowMT","_HighMT"]
 #    JPT=["_LowDPhi", "_HighDPhi"];
     JPT=[ "_HighDPhi"]
-#    lqEta= ["_Barrel", "_Endcap","_TotEta"]
-    lqEta= ["_TotEta"]
+    lqEta= ["_Barrel", "_Endcap","_TotEta"]
+#    lqEta= ["_TotEta"]
     region= ["", "_ttbarCR","_DYCR"]
 #    region= ["", "_DYCR"]
 

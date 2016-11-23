@@ -360,12 +360,15 @@ Isolation=["_Iso"]
 ##JPT=["_LowDPhi", "_HighDPhi","_RelaxDphi"];
 #JPT=["_HighDPhi"];
 ##DR=["_dRMore","_dRLess","_dRRelax"]
-lqEta= ["_TotEta"];
+
 region= ["", "_ttbarCR","_DYCR"]
 
-MT=["_NoMT","_HighMT"]
+#MT= ["_NoMT","_LowMT","_HighMT"]
+MT=["_NoMT"]
 JPT=[ "_HighDPhi"];
 #region= ["","_DYCR"]
+lqEta= ["_Barrel", "_Endcap","_TotEta"]
+
 
 #for NormMC in PlotName:
 for i in range(0,len(FileNamesInfo)):

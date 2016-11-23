@@ -45,9 +45,11 @@ int main(int argc, char** argv) {
     
     
     
-    TFile * KFactor= TFile::Open("../interface/kfactors.root");
+    TFile * KFactor= TFile::Open("../interface/pileup-hists/kfactors.root");
     TH1F * WLO= (TH1F *) KFactor->Get("WJets_LO/inv_pt");
-//    TH1F * WNLO= (TH1F *) KFactor->Get("EWKcorr/W");
+    TH1F * WNLO= (TH1F *) KFactor->Get("EWKcorr/W");
+    TH1F * ZLO= (TH1F *) KFactor->Get("ZJets_LO/inv_pt");
+    TH1F * ZNLO= (TH1F *) KFactor->Get("EWKcorr/Z");
     
     
     
@@ -182,16 +184,11 @@ int main(int argc, char** argv) {
         float eleMass= 0.000511;
         float LeptonPtCut_=60;
         float TauPtCut_=20;
-        float JetPtCut=50;
-        //        float JetPtCut=50;
+        float JetPtCut=100; // used to be 50
         float BJetPtCut=20;
         float ElectronPtCut_=15;
-                float CSVCut= 0.460 ;                    //https://twiki.cern.ch/twiki/bin/viewauth/CMS/BtagRecommendation74X
-//        float CSVCut= 0.935 ;                    //https://twiki.cern.ch/twiki/bin/viewauth/CMS/BtagRecommendation74X
-        
+        float CSVCut= 0.935 ;    // loose is 0.460                 //https://twiki.cern.ch/twiki/bin/viewauth/CMS/BtagRecommendation74X
         float LeptonIsoCut=0.15;
-        
-        
         
         
         Int_t nentries_wtn = (Int_t) Run_Tree->GetEntries();
@@ -208,10 +205,6 @@ int main(int argc, char** argv) {
             //  Weight Calculation
             //###############################################################################################
             //###############################################################################################
-            size_t isSingleMu = InputROOT.find("SingleMu");
-            //            size_t isSingleEle = InputROOT.find("SingleEle");
-            
-            
             //############ Top Reweighting & W boson SCale Factor
             
             float GenTopPt=0;
@@ -219,16 +212,20 @@ int main(int argc, char** argv) {
             float TopPtReweighting = 1;
             float WBosonPt=0;
             float WBosonKFactor=1;
-            int hasWboson=0;
+            float ZBosonPt=0;
+            float ZBosonKFactor=1;
             for (int igen=0;igen < nMC; igen++){
                 if (mcPID->at(igen) == 6 && mcStatus->at(igen) ==62) GenTopPt=mcPt->at(igen) ;
                 if (mcPID->at(igen) == -6 && mcStatus->at(igen) ==62) GenAntiTopPt=mcPt->at(igen);
                 if (fabs(mcPID->at(igen)) ==24   && mcStatus->at(igen) ==22)  WBosonPt= mcPt->at(igen); // In inclusive we have status 62||22||44 while in HTbins we have just 22
+                if (fabs(mcPID->at(igen)) ==23   && mcStatus->at(igen) ==22)  ZBosonPt= mcPt->at(igen);
             }
             size_t isTTJets = InputROOT.find("TTJets");
             if (isTTJets!= string::npos) TopPtReweighting = compTopPtWeight(GenTopPt, GenAntiTopPt);
             size_t isWJets = InputROOT.find("WJets");
-            //            if (isWJets!= string::npos) WBosonKFactor=GetWBosonKFactor(WBosonPt,WLO,WNLO);  //Swtch ON only for LO Madgraph sample
+            if (isWJets!= string::npos) WBosonKFactor=Get_W_Z_BosonKFactor(WBosonPt,WLO,WNLO);  //Swtch ON only for LO Madgraph sample
+            size_t isDYJets = InputROOT.find("DYJets");
+            if (isDYJets!= string::npos) ZBosonKFactor=Get_W_Z_BosonKFactor(ZBosonPt,ZLO,ZNLO);  //Swtch ON only for LO Madgraph sample
             
             //###############################################################################################
             float LumiWeight = 1;
@@ -247,9 +244,9 @@ int main(int argc, char** argv) {
                 PUWeight= PUData_/PUMC_;
             }
             
-            float TotalWeight = LumiWeight * GetGenWeight * PUWeight * TopPtReweighting * WBosonKFactor;
+            float TotalWeight = LumiWeight * GetGenWeight * PUWeight * TopPtReweighting * WBosonKFactor * ZBosonKFactor;
             //###############################################################################################
-            //  Histogram Filling
+            //  Some Histogram Filling
             //###############################################################################################
             plotFill("WeightLumi",LumiWeight,10000,0,100);
             plotFill("TopPtReweighting",TopPtReweighting,100,0,10);
@@ -268,12 +265,7 @@ int main(int argc, char** argv) {
             //###############################################################################################
             //  Doing MuTau Analysis
             //###############################################################################################
-            
-            
-            //###############################################################################################
-            //  Trigger Categorization
-            //###############################################################################################
-            
+            //###########       Trigger Requirement ###########################################################
             const int size_trgCat = 1;
             bool PassTrigger=1;
             if (isData) PassTrigger = (HLTEleMuX >> 26 & 1) == 1; //  else if (name.find("HLT_Mu45_eta2p1_v") != string::npos) bitEleMuX = 26;
@@ -335,14 +327,8 @@ int main(int argc, char** argv) {
                 if ( (muPFNeuIso->at(1) + muPFPhoIso->at(1) - 0.5* muPFPUIso->at(1) )  > 0.0)
                     IsoMu2= ( muPFChIso->at(1)/muPt->at(1) + muPFNeuIso->at(1) + muPFPhoIso->at(1) - 0.5* muPFPUIso->at(1))/muPt->at(1);
                 
-                
                 if ( IsoMu1 < 0.25  && IsoMu2 < 0.25 && Z4Momentum.M() > 80 && Z4Momentum.M()< 100 ) numZboson++;
             }
-            
-            //            if ((numTau+numElectron + numBJet+numZboson) > 0) continue;
-            
-            
-            
             
             
             //############################################################################################
@@ -361,14 +347,11 @@ int main(int argc, char** argv) {
                 if (! MuPtCut || !MuIdIso ) continue;
                 
                 
-                //                        float LepCor=1 * WSCALEFACTORE;
                 float LepCor=getCorrFactorMuon74X(isData,  muPt->at(imu), muEta->at(imu) , HistoMuId,HistoMuIso,HistoMuTrg);
                 
                 
                 TLorentzVector Mu4Momentum, Tau4Momentum, Jet4Momentum,ExtraMu4Momentum, ExtraEle4Momentum,KJet4Momentum,LQ;
                 Mu4Momentum.SetPtEtaPhiM(muPt->at(imu),muEta->at(imu),muPhi->at(imu),MuMass);
-                
-                
                 
                 
                 //###########      Finding the close jet near mu   ###########################################################
@@ -395,9 +378,6 @@ int main(int argc, char** argv) {
                     }
                 }
                 
-                
-                
-                
                 //###########    loop over  Jet    ###########################################################
                 
                 for (int ijet= 0 ; ijet < nJet ; ijet++){
@@ -410,14 +390,10 @@ int main(int argc, char** argv) {
                     
                     LQ=Jet4Momentum + Mu4Momentum;
                     
-                    
-                    
                     //###############################################################################################
                     //  Isolation Categorization
                     //###############################################################################################
                     //###############################################################################################
-                    
-                    
                     bool LepPassIsolation= IsoMu < LeptonIsoCut;
                     
                     const int size_isoCat = 3;
@@ -431,32 +407,24 @@ int main(int argc, char** argv) {
                     //  MT Categorization
                     //###############################################################################################
                     float tmass_MuMet= TMass_F(muPt->at(imu), muPt->at(imu)*cos(muPhi->at(imu)),muPt->at(imu)*sin(muPhi->at(imu)) , pfMET, pfMETPhi);
-//                    float tmass_MuMetNew= TMass_FNew(muPt->at(imu), muPhi->at(imu), pfMET, pfMETPhi);
-//                     cout << tmass_MuMet << "  v.s.   "<<tmass_MuMetNew<<"\n";
                     
                     const int size_mTCat = 3;
                     bool NoMT = 1;
                     bool LoWMT = (tmass_MuMet < 40);
-                    bool HighMT = (tmass_MuMet > 150);
-                    //                    bool WRegionMT= tmass_MuMet > 60 && tmass_MuMet < 100;
+                    bool HighMT = (tmass_MuMet > 100);
                     
                     bool MT_category[size_mTCat] = {NoMT,LoWMT,HighMT};
                     std::string MT_Cat[size_mTCat] = {"_NoMT", "_LowMT","_HighMT"};
-                    //                    bool MT_category[size_mTCat] = {NoMT,LoWMT,HighMT,WRegionMT};
-                    //                    std::string MT_Cat[size_mTCat] = {"_NoMT", "_LowMT","_HighMT","_WRegionMT"};
-                    
                     
                     float tmass_JetMet= TMass_F(jetPt->at(ijet), jetPt->at(ijet)*cos(jetPhi->at(ijet)),jetPt->at(ijet)*sin(jetPhi->at(ijet)) , pfMET, pfMETPhi);
                     float tmass_LQMet= TMass_F(LQ.Pt(), LQ.Px(),LQ.Py(), pfMET, pfMETPhi);
                     
-                    //                    if (tmass_MuMet > 2000) cout << "MT=  "<< tmass_MuMet<<"\n";
                     //###############################################################################################
                     //  dPhi Jet_MET Categorization
                     //###############################################################################################
                     const int size_jetMetPhi = 2;
                     bool lowDPhi = (deltaPhi(Jet4Momentum.Phi(),pfMETPhi) < 0.5);
                     bool HighDPhi = (deltaPhi(Jet4Momentum.Phi(),pfMETPhi) >= 0.5);
-                    
                     
                     bool jetMetPhi_category[size_jetMetPhi] = {lowDPhi,HighDPhi};
                     std::string jetMetPhi_Cat[size_jetMetPhi] = {"_LowDPhi", "_HighDPhi"};
@@ -469,7 +437,6 @@ int main(int argc, char** argv) {
                     bool BarrelLQ = (fabs(LQ.Eta()) >= 1.5 );
                     bool TotLQ = 1;
                     
-                    
                     bool lqEta_category[size_lqEta] = {centralLQ,BarrelLQ,TotLQ};
                     std::string lqEta_Cat[size_lqEta] = {"_Barrel", "_Endcap","_TotEta"};
                     
@@ -478,15 +445,10 @@ int main(int argc, char** argv) {
                     //###############################################################################################
                     const int size_CR = 3;
                     bool signalRegion = numTau+numZboson + numElectron + numBJet < 1 ;
-//                    bool signalRegion = 1;
-                    //                    bool TTcontrolRegion = (numTau <1 && numZboson < 1 && numElectron > 0 && numBJet > 0 );
-                    bool TTcontrolRegion = (numTau <1 && numZboson < 1 && numElectron > 0 && numBJet > 0); // remove btag requirement
+                    bool TTcontrolRegion = (numTau <1 && numZboson < 1 && numElectron > 0 && numBJet > 0);
                     bool DYcontrolRegion = (numTau <1 && numZboson > 0 && numElectron < 1 && numBJet < 1 );
-                    
-                    //                    if (controlRegion)  cout <<"TTbar CR passed\n";
                     bool region_category[size_CR] = {signalRegion,TTcontrolRegion,DYcontrolRegion};
                     std::string region_Cat[size_CR] = {"", "_ttbarCR","_DYCR"};
-                    
                     
                     //###############################################################################################
                     
@@ -509,8 +471,6 @@ int main(int argc, char** argv) {
                                                         if (region_category[iCR]) {
                                                             
                                                             
-                                                            
-                                                            //                                                            if (isTTJets!= string::npos) TotalWeight * LepCor=TotalWeight * TTScaleFactor[ist];  // Add TT scale factor
                                                             if (isWJets!= string::npos) WSCALEFACTORE=WSF_mutau;  // Add W scale factor
                                                             
                                                             
@@ -532,13 +492,12 @@ int main(int argc, char** argv) {
                                                                 plotFill(CHL+"_JetPt"+FullStringName,jetPt->at(ijet) ,200,0,2000,FullWeight);
                                                                 plotFill(CHL+"_JetEta"+FullStringName,jetEta->at(ijet),100,-2.5,2.5,FullWeight);
                                                                 plotFill(CHL+"_LepPt"+FullStringName,muPt->at(imu),200,0,2000,FullWeight);
-                                                                //                                                            plotFill(CHL+"_LepIso"+FullStringName,IsoMu,200,0,2,FullWeight);
                                                                 plotFill(CHL+"_LepEta"+FullStringName,muEta->at(imu),100,-2.5,2.5,FullWeight);
                                                                 plotFill(CHL+"_CloseJetLepPt"+FullStringName,CLoseJetMuPt,1000,0,1000,FullWeight);
                                                                 //                                                            plotFill(CHL+"_CloseJetLepEta"+FullStringName,CLoseJetMuEta,100,-2.5,2.5,FullWeight);
                                                                 
-                                                                //                                                            plotFill(CHL+"_nVtx"+FullStringName,nVtx,50,0,50,FullWeight);
-                                                                //                                                            plotFill(CHL+"_nVtx_NoPU"+FullStringName,nVtx,50,0,50,TotalWeight * LepCor / PUWeight);
+                                                                plotFill(CHL+"_nVtx"+FullStringName,nVtx,50,0,50,FullWeight);
+                                                                plotFill(CHL+"_nVtx_NoPU"+FullStringName,nVtx,50,0,50,TotalWeight * LepCor / PUWeight);
                                                                 
                                                                 plotFill(CHL+"_MET"+FullStringName,pfMET,200,0,2000,FullWeight);
                                                                 plotFill(CHL+"_LQMass"+FullStringName,LQ.M(),200,0,2000,FullWeight);
@@ -551,15 +510,7 @@ int main(int argc, char** argv) {
                                                                 plotFill(CHL+"_dPhi_Jet_Met"+FullStringName,deltaPhi(Jet4Momentum.Phi(),pfMETPhi),200,0,4,FullWeight);
                                                                 plotFill(CHL+"_dPhi_Mu_Met"+FullStringName,deltaPhi(Mu4Momentum.Phi(),pfMETPhi),200,0,4,FullWeight);
                                                                 
-                                                                //                                                            plotFill(CHL+"_WBosonPt"+FullStringName,WBosonPt,150,0,1500,FullWeight);
-                                                                //                                                            plotFill(CHL+"_WBosonKFactor"+FullStringName,WBosonKFactor,200,0,2,FullWeight);
-                                                                
-                                                                
-//                                                                plotFill(CHL+"_numTau"+FullStringName,numTau,5,0,5,FullWeight);
-//                                                                plotFill(CHL+"_numElectron"+FullStringName,numElectron,5,0,5,FullWeight);
-//                                                                plotFill(CHL+"_numBJet"+FullStringName,numBJet,5,0,5,FullWeight);
-//                                                                plotFill(CHL+"_numZboson"+FullStringName,numZboson,5,0,5,FullWeight);
-                                                                
+                                                                plotFill(CHL+"_BosonKFactor"+FullStringName,ZBosonKFactor*WBosonKFactor,200,0,2,FullWeight);
                                                                 
                                                                 
                                                                 
@@ -577,9 +528,6 @@ int main(int argc, char** argv) {
                         }
                     }
                     
-                    //qcd control region   MET > 100 && MT > 150  && Jet < 100 && jet > 50;
-                    //qcd
-                    
                     //###############################################################################################
                     //  Doing EleTau Analysis
                     //###############################################################################################
@@ -594,7 +542,6 @@ int main(int argc, char** argv) {
     }
     
     fout->cd();
-    //    BG_Tree->Write();
     
     map<string, TH1F*>::const_iterator iMap1 = myMap1->begin();
     map<string, TH1F*>::const_iterator jMap1 = myMap1->end();

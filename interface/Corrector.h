@@ -284,7 +284,7 @@ float WShapeUnc(string InputROOT, float CLoseJetTauPt){
 //  Apply W k-factor scale factor
 
 
-float GetWBosonKFactor(float WBosonPt, TH1F* WLO, TH1F* WNLO){
+float Get_W_Z_BosonKFactor(float WBosonPt, TH1F* WLO, TH1F* WNLO){
     float LO=0;
     float NLO=0;
     float kfactor=1;
