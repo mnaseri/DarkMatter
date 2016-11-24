@@ -185,7 +185,7 @@ def MakePlot(FileName,categoriy,HistName,Xaxis,Info,RB_,channel):
     errorBand.SetLineWidth(1)
 
     pad1 = ROOT.TPad("pad1","pad1",0,0.35,1,1)
-#    pad1.SetLogy()
+    pad1.SetLogy()
     pad1.Draw()
     pad1.cd()
     pad1.SetFillColor(0)
@@ -204,8 +204,8 @@ def MakePlot(FileName,categoriy,HistName,Xaxis,Info,RB_,channel):
     pad1.SetFrameBorderSize(10)
 
     Data.GetXaxis().SetLabelSize(0)
-#    Data.SetMaximum(Data.GetMaximum()*10000)
-    Data.SetMaximum(Data.GetMaximum()*3)
+    Data.SetMaximum(Data.GetMaximum()*10000)
+#    Data.SetMaximum(Data.GetMaximum()*3)
     Data.SetMinimum(.2)
     Data.Draw("e")
     stack.Draw("histsame")
@@ -352,22 +352,16 @@ FileNamesInfo=[
 
 #PlotName= ["_tmass_MuMet","_tmass_JetMet","_tmass_LQMet","_LepEta","_LepPt","_LepIso","_JetPt","_JetEta","_MET","_LQMass","_dPhi_Jet_Met","_dPhi_Mu_Met","_nVtx","_nVtx_NoPU"]
 
-#Isolation=["_Iso", "_AntiIso","_Total"]
+#    Isolation=["_Iso", "_AntiIso","_Total"]
 Isolation=["_Iso"]
-#MT=["_NoMT", "_LowMT","_HighMT"]
-#MT=["_NoMT","_HighMT"]
-##MT= ["_HighMT","_WRegionMT"]
-##JPT=["_LowDPhi", "_HighDPhi","_RelaxDphi"];
-#JPT=["_HighDPhi"];
-##DR=["_dRMore","_dRLess","_dRRelax"]
-
-region= ["", "_ttbarCR","_DYCR"]
-
-#MT= ["_NoMT","_LowMT","_HighMT"]
-MT=["_NoMT"]
-JPT=[ "_HighDPhi"];
-#region= ["","_DYCR"]
+#    MT=["_NoMT"]
+MT= ["_NoMT","_LowMT","_HighMT"]
+#    JPT=["_LowDPhi", "_HighDPhi"];
+JPT=[ "_HighDPhi"]
 lqEta= ["_Barrel", "_Endcap","_TotEta"]
+#    lqEta= ["_TotEta"]
+region= ["", "_ttbarCR","_DYCR"]
+#    region= ["", "_DYCR"]
 
 
 #for NormMC in PlotName:

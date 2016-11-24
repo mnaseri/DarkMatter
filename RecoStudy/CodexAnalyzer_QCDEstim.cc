@@ -44,7 +44,12 @@ int main(int argc, char** argv) {
     TH2F * HistoMuTrg= (TH2F *) MuCorrTrg->Get("Mu45_eta2p1_PtEtaBins_Run274094_to_276097/efficienciesDATA/pt_abseta_DATA");
     
     
-    ;
+    
+    TFile * KFactor= TFile::Open("../interface/pileup-hists/kfactors.root");
+    TH1F * WLO= (TH1F *) KFactor->Get("WJets_LO/inv_pt");
+    TH1F * WNLO= (TH1F *) KFactor->Get("EWKcorr/W");
+    TH1F * ZLO= (TH1F *) KFactor->Get("ZJets_LO/inv_pt");
+    TH1F * ZNLO= (TH1F *) KFactor->Get("EWKcorr/Z");
     
     
     
@@ -90,6 +95,10 @@ int main(int argc, char** argv) {
         Run_Tree->SetBranchAddress("mcPhi", &mcPhi );
         Run_Tree->SetBranchAddress("mcE", &mcE );
         Run_Tree->SetBranchAddress("mcMass", &mcMass );
+        Run_Tree->SetBranchAddress("mcMomPID", &mcMomPID );
+        Run_Tree->SetBranchAddress("mcGMomPID", &mcGMomPID );
+        
+        
         
         /////////////////////////   Tau Info
         Run_Tree->SetBranchAddress("nTau", &nTau);
@@ -175,16 +184,11 @@ int main(int argc, char** argv) {
         float eleMass= 0.000511;
         float LeptonPtCut_=60;
         float TauPtCut_=20;
-        float JetPtCut=50;
-//        float JetPtCut=50;
+        float JetPtCut=50; // used to be 50 for QCD
         float BJetPtCut=20;
         float ElectronPtCut_=15;
-        //        float LooseCSV= 0.460 ;                    //https://twiki.cern.ch/twiki/bin/viewauth/CMS/BtagRecommendation74X
-        float LooseCSV= 0.935 ;                    //https://twiki.cern.ch/twiki/bin/viewauth/CMS/BtagRecommendation74X
-        
+        float CSVCut= 0.935 ;    // loose is 0.460                 //https://twiki.cern.ch/twiki/bin/viewauth/CMS/BtagRecommendation74X
         float LeptonIsoCut=0.15;
-        
-        
         
         
         Int_t nentries_wtn = (Int_t) Run_Tree->GetEntries();
@@ -197,28 +201,32 @@ int main(int argc, char** argv) {
             if (isData && (metFilters!=0)) continue;
             std::vector<string> HistNamesFilled;
             HistNamesFilled.clear();
-            
-            
             //###############################################################################################
             //  Weight Calculation
             //###############################################################################################
             //###############################################################################################
-            size_t isSingleMu = InputROOT.find("SingleMu");
-            size_t isSingleEle = InputROOT.find("SingleEle");
-            //            size_t isTTJets = InputROOT.find("TTJets");
-            size_t isWJets = InputROOT.find("WJets");
-            
-            //############ Top Reweighting
+            //############ Top Reweighting & W boson SCale Factor
             
             float GenTopPt=0;
             float GenAntiTopPt=0;
             float TopPtReweighting = 1;
+            float WBosonPt=0;
+            float WBosonKFactor=1;
+            float ZBosonPt=0;
+            float ZBosonKFactor=1;
             for (int igen=0;igen < nMC; igen++){
                 if (mcPID->at(igen) == 6 && mcStatus->at(igen) ==62) GenTopPt=mcPt->at(igen) ;
                 if (mcPID->at(igen) == -6 && mcStatus->at(igen) ==62) GenAntiTopPt=mcPt->at(igen);
+                if (fabs(mcPID->at(igen)) ==24   && mcStatus->at(igen) ==22)  WBosonPt= mcPt->at(igen); // In inclusive we have status 62||22||44 while in HTbins we have just 22
+                if (fabs(mcPID->at(igen)) ==23   && mcStatus->at(igen) ==22)  ZBosonPt= mcPt->at(igen);
             }
             size_t isTTJets = InputROOT.find("TTJets");
             if (isTTJets!= string::npos) TopPtReweighting = compTopPtWeight(GenTopPt, GenAntiTopPt);
+            size_t isWJets = InputROOT.find("WJets");
+            if (isWJets!= string::npos) WBosonKFactor=Get_W_Z_BosonKFactor(WBosonPt,WLO,WNLO);  //Swtch ON only for LO Madgraph sample
+            size_t isDYJets = InputROOT.find("DYJets");
+            if (isDYJets!= string::npos) ZBosonKFactor=Get_W_Z_BosonKFactor(ZBosonPt,ZLO,ZNLO);  //Swtch ON only for LO Madgraph sample
+            
             //###############################################################################################
             float LumiWeight = 1;
             float GetGenWeight=1;
@@ -226,7 +234,7 @@ int main(int argc, char** argv) {
             
             if (!isData){
                 
-                if (HistoTot) LumiWeight = weightCalc(HistoTot, InputROOT, genHT,200, W_Events, DY_Events,W_EventsNLO);
+                if (HistoTot) LumiWeight = weightCalc(HistoTot, InputROOT, genHT,WBosonPt, W_Events, DY_Events,W_EventsNLO);
                 GetGenWeight=genWeight;
                 
                 int puNUmmc=int(puTrue->at(0)*10);
@@ -236,9 +244,9 @@ int main(int argc, char** argv) {
                 PUWeight= PUData_/PUMC_;
             }
             
-            float TotalWeight = 1;
+            float TotalWeight = LumiWeight * GetGenWeight * PUWeight * TopPtReweighting * WBosonKFactor * ZBosonKFactor;
             //###############################################################################################
-            //  Histogram Filling
+            //  Some Histogram Filling
             //###############################################################################################
             plotFill("WeightLumi",LumiWeight,10000,0,100);
             plotFill("TopPtReweighting",TopPtReweighting,100,0,10);
@@ -246,6 +254,8 @@ int main(int argc, char** argv) {
             plotFill("WeightTotal",TotalWeight,50,0,5);
             plotFill("nVtx_NoPUCorr",nVtx,60,0,60);
             plotFill("nVtx_PUCorr",nVtx,60,0,60,PUWeight);
+            plotFill("WBosonPt",WBosonPt,150,0,1500,PUWeight);
+            
             for (int qq=0; qq < 60;qq++){
                 if ((HLTEleMuX >> qq & 1) == 1)
                     plotFill("HLT",qq,60,0,60);
@@ -255,12 +265,7 @@ int main(int argc, char** argv) {
             //###############################################################################################
             //  Doing MuTau Analysis
             //###############################################################################################
-            
-            
-            //###############################################################################################
-            //  Trigger Categorization
-            //###############################################################################################
-            
+            //###########       Trigger Requirement ###########################################################
             const int size_trgCat = 1;
             bool PassTrigger=1;
             if (isData) PassTrigger = (HLTEleMuX >> 26 & 1) == 1; //  else if (name.find("HLT_Mu45_eta2p1_v") != string::npos) bitEleMuX = 26;
@@ -301,7 +306,7 @@ int main(int argc, char** argv) {
             //###########       bJet Veto   ###########################################################
             int numBJet=0;
             for (int ijet= 0 ; ijet < nJet ; ijet++){
-                if (jetPFLooseId->at(ijet) > 0.5 && jetPt->at(ijet) > BJetPtCut && fabs(jetEta->at(ijet)) < 2.4 && jetpfCombinedInclusiveSecondaryVertexV2BJetTags->at(ijet) >  LooseCSV )
+                if (jetPFLooseId->at(ijet) > 0.5 && jetPt->at(ijet) > BJetPtCut && fabs(jetEta->at(ijet)) < 2.4 && jetpfCombinedInclusiveSecondaryVertexV2BJetTags->at(ijet) >  CSVCut )
                     numBJet++;
             }
             
@@ -313,7 +318,16 @@ int main(int argc, char** argv) {
                 Mu4Momentum_0.SetPtEtaPhiM(muPt->at(0),muEta->at(0),muPhi->at(0),MuMass);
                 Mu4Momentum_1.SetPtEtaPhiM(muPt->at(1),muEta->at(1),muPhi->at(1),MuMass);
                 Z4Momentum=Mu4Momentum_1+Mu4Momentum_0;
-                if (Z4Momentum.M() > 80 && Z4Momentum.M()< 100 ) numZboson++;
+                
+                float IsoMu1=muPFChIso->at(0)/muPt->at(0);
+                if ( (muPFNeuIso->at(0) + muPFPhoIso->at(0) - 0.5* muPFPUIso->at(0) )  > 0.0)
+                    IsoMu1= ( muPFChIso->at(0)/muPt->at(0) + muPFNeuIso->at(0) + muPFPhoIso->at(0) - 0.5* muPFPUIso->at(0))/muPt->at(0);
+                
+                float IsoMu2=muPFChIso->at(1)/muPt->at(1);
+                if ( (muPFNeuIso->at(1) + muPFPhoIso->at(1) - 0.5* muPFPUIso->at(1) )  > 0.0)
+                    IsoMu2= ( muPFChIso->at(1)/muPt->at(1) + muPFNeuIso->at(1) + muPFPhoIso->at(1) - 0.5* muPFPUIso->at(1))/muPt->at(1);
+                
+                if ( IsoMu1 < 0.25  && IsoMu2 < 0.25 && Z4Momentum.M() > 80 && Z4Momentum.M()< 100 ) numZboson++;
             }
             //###########       Second Muon Veto   ###########################################################
             int secondMuveto=0;
@@ -495,7 +509,6 @@ int main(int argc, char** argv) {
                                                         plotFill(CHL+"_JetPt"+FullStringName,jetPt->at(ijet) ,100,0,500,FullWeight);
                                                         plotFill(CHL+"_JetEta"+FullStringName,jetEta->at(ijet),100,-2.5,2.5,FullWeight);
                                                         plotFill(CHL+"_LepPt"+FullStringName,muPt->at(imu),100,0,500,FullWeight);
-                                                        plotFill(CHL+"_LepIso"+FullStringName,IsoMu,200,0,2,FullWeight);
                                                         plotFill(CHL+"_LepEta"+FullStringName,muEta->at(imu),100,-2.5,2.5,FullWeight);
                                                         plotFill(CHL+"_CloseJetLepPt"+FullStringName,CLoseJetMuPt,1000,0,1000,FullWeight);
                                                         plotFill(CHL+"_CloseJetLepEta"+FullStringName,CLoseJetMuEta,100,-2.5,2.5,FullWeight);
