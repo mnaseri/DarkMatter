@@ -1,0 +1,13 @@
+#! /bin/sh
+
+$LSB_TRAPSIGS
+$LSB_RCP1
+$LSB_RCP2
+$LSB_RCP3
+# LSBATCH: User input
+/usr/local/lsf/etc/job_starter 'CodexAnalyzer_Preselection.exe /afs/cern.ch/work/m/mnaseri/work/13TeVAnalyses/DarkMatter_Codex/CMSSW_7_1_21_patch1/src/DarkMatter/RecoStudy/OutFiles_PreSelection/JOB_11-29-16/Main/WJetsToLNu.root /afs/cern.ch/work/m/mnaseri/work/13TeVAnalyses/DarkMatter_Codex/CMSSW_7_1_21_patch1/src/DarkMatter/RecoStudy/../ROOT80X/WJetsToLNu_HT-100To200.root /afs/cern.ch/work/m/mnaseri/work/13TeVAnalyses/DarkMatter_Codex/CMSSW_7_1_21_patch1/src/DarkMatter/RecoStudy/../ROOT80X/WJetsToLNu_HT-1200To2500.root /afs/cern.ch/work/m/mnaseri/work/13TeVAnalyses/DarkMatter_Codex/CMSSW_7_1_21_patch1/src/DarkMatter/RecoStudy/../ROOT80X/WJetsToLNu_HT-200To400.root /afs/cern.ch/work/m/mnaseri/work/13TeVAnalyses/DarkMatter_Codex/CMSSW_7_1_21_patch1/src/DarkMatter/RecoStudy/../ROOT80X/WJetsToLNu_HT-2500ToInf.root /afs/cern.ch/work/m/mnaseri/work/13TeVAnalyses/DarkMatter_Codex/CMSSW_7_1_21_patch1/src/DarkMatter/RecoStudy/../ROOT80X/WJetsToLNu_HT-400To600.root /afs/cern.ch/work/m/mnaseri/work/13TeVAnalyses/DarkMatter_Codex/CMSSW_7_1_21_patch1/src/DarkMatter/RecoStudy/../ROOT80X/WJetsToLNu_HT-600To800.root /afs/cern.ch/work/m/mnaseri/work/13TeVAnalyses/DarkMatter_Codex/CMSSW_7_1_21_patch1/src/DarkMatter/RecoStudy/../ROOT80X/WJetsToLNu_HT-800To1200.root /afs/cern.ch/work/m/mnaseri/work/13TeVAnalyses/DarkMatter_Codex/CMSSW_7_1_21_patch1/src/DarkMatter/RecoStudy/../ROOT80X/WJetsToLNu_Inc.root '
+ExitStat=$?
+wait
+# LSBATCH: End user input
+true
+exit `expr $? "|" $ExitStat`

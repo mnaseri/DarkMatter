@@ -12,12 +12,16 @@ export Input_Loc=$2
 export RootName_Prefix=""
 alias  list='ls'
 
+source /afs/cern.ch/project/eos/installation/cms/etc/setup.sh
+
+
 Execute_Date=`date +%m-%d-%y`
 printf "Do you know today is: %s\n" $Execute_Date
 Date=`printf "${Run_Type}_%s\n" $Execute_Date`  
 
 #Here set the default location of input files for pre selection code.
-export AFS_SampleLoc=../ROOT80X
+export Working_Dir=`pwd`
+export AFS_SampleLoc=$Working_Dir/../ROOT80X
 export EOS_SampleLoc=/eos/cms/store/user/mnaseri/Codex_DK
 
 if [ "${Input_Loc}" == "AFS" ];then
@@ -37,7 +41,7 @@ fi
 
 
 #Here default output directory is created to store the output files.
-export PreResults_DIR=OutFiles_PreSelection/${Date}
+export PreResults_DIR=$Working_Dir/OutFiles_PreSelection/${Date}
 mkdir -p $PreResults_DIR
 
 # you can set the specific name for output directory.
@@ -62,15 +66,42 @@ fi
 ./Make.sh CodexAnalyzer_Preselection.cc
 
 
-
-./CodexAnalyzer_Preselection.exe   $PreResults_DIR/DYJetsToLL.root ` list  $SampleLoc/DYJetsToLL_M-50_*.root`
-./CodexAnalyzer_Preselection.exe  $PreResults_DIR/TTJets.root  `list $SampleLoc/Inclusive_TTJets.root`
+if [ "${Run_Type}" == "LOCAL" ];then
+./CodexAnalyzer_Preselection.exe   $PreResults_DIR/DYJetsToLL.root ` list  $SampleLoc/DYJetsToLL_M-50_*.root | xargs `
+./CodexAnalyzer_Preselection.exe  $PreResults_DIR/TTJets.root  `list $SampleLoc/Inclusive_TTJets.root | xargs `
 ./CodexAnalyzer_Preselection.exe  $PreResults_DIR/WJetsToLNu.root `list $SampleLoc/WJetsToLNu*.root`	
-./CodexAnalyzer_Preselection.exe  $PreResults_DIR/VV.root `list $SampleLoc/ZZ.root  $SampleLoc/WW.root  $SampleLoc/WZ.root`
-./CodexAnalyzer_Preselection.exe  $PreResults_DIR/SingleTop.root `list $SampleLoc/ST_*.root`
-./CodexAnalyzer_Preselection.exe  $PreResults_DIR/Data.root `list $SampleLoc/SingleMu.root`
-./CodexAnalyzer_Preselection.exe  $PreResults_DIR/Codex1000.root    `list $SampleLoc/Codex_1000.root`
-./CodexAnalyzer_Preselection.exe  $PreResults_DIR/Codex1400.root    `list $SampleLoc/Codex_1400.root`
-./CodexAnalyzer_Preselection.exe  $PreResults_DIR/Codex1800.root   `list  $SampleLoc/Codex_1800.root`
+./CodexAnalyzer_Preselection.exe  $PreResults_DIR/VV.root `list $SampleLoc/ZZ.root  $SampleLoc/WW.root  $SampleLoc/WZ.root | xargs `
+./CodexAnalyzer_Preselection.exe  $PreResults_DIR/SingleTop.root `list $SampleLoc/ST_*.root | xargs `
+./CodexAnalyzer_Preselection.exe  $PreResults_DIR/Data.root `list $SampleLoc/SingleMu.root | xargs `
+./CodexAnalyzer_Preselection.exe  $PreResults_DIR/Codex1000.root    `list $SampleLoc/Codex_1000.root | xargs `
+./CodexAnalyzer_Preselection.exe  $PreResults_DIR/Codex1400.root    `list $SampleLoc/Codex_1400.root | xargs `
+./CodexAnalyzer_Preselection.exe  $PreResults_DIR/Codex1800.root   `list  $SampleLoc/Codex_1800.root | xargs `
 
+elif [ "${Run_Type}" == "JOB" ];then
 
+masterqueue=8nh
+memory=12000
+diskspace=12000
+
+bsub -q ${masterqueue} -C 0  -R "rusage[mem=${memory}:pool=${diskspace}]"  " CodexAnalyzer_Preselection.exe $PreResults_DIR/DYJetsToLL.root `list $SampleLoc/DYJetsToLL_M-50_*.root | xargs` "
+
+bsub -q ${masterqueue} -C 0  -R "rusage[mem=${memory}:pool=${diskspace}]" " CodexAnalyzer_Preselection.exe $PreResults_DIR/TTJets.root  `list $SampleLoc/Inclusive_TTJets.root | xargs` "
+
+bsub -q ${masterqueue} -C 0  -R "rusage[mem=${memory}:pool=${diskspace}]" " CodexAnalyzer_Preselection.exe $PreResults_DIR/WJetsToLNu.root `list $SampleLoc/WJetsToLNu*.root | xargs` "
+
+bsub -q ${masterqueue} -C 0  -R "rusage[mem=${memory}:pool=${diskspace}]" " CodexAnalyzer_Preselection.exe $PreResults_DIR/VV.root `list $SampleLoc/ZZ.root  $SampleLoc/WW.root  $SampleLoc/WZ.root | xargs `"
+
+bsub -q ${masterqueue} -C 0  -R "rusage[mem=${memory}:pool=${diskspace}]" " CodexAnalyzer_Preselection.exe $PreResults_DIR/SingleTop.root `list $SampleLoc/ST_*.root | xargs `"
+
+bsub -q ${masterqueue} -C 0  -R "rusage[mem=${memory}:pool=${diskspace}]" " CodexAnalyzer_Preselection.exe $PreResults_DIR/Data.root `list $SampleLoc/SingleMu.root | xargs`"
+
+bsub -q ${masterqueue} -C 0  -R "rusage[mem=${memory}:pool=${diskspace}]" " CodexAnalyzer_Preselection.exe $PreResults_DIR/Codex1000.root    `list $SampleLoc/Codex_1000.root | xargs `"
+
+bsub -q ${masterqueue} -C 0  -R "rusage[mem=${memory}:pool=${diskspace}]" " CodexAnalyzer_Preselection.exe $PreResults_DIR/Codex1400.root    `list $SampleLoc/Codex_1400.root | xargs `"
+
+bsub -q ${masterqueue} -C 0  -R "rusage[mem=${memory}:pool=${diskspace}]" " CodexAnalyzer_Preselection.exe $PreResults_DIR/Codex1800.root   `list  $SampleLoc/Codex_1800.root | xargs `"
+
+else
+    echo Please insert the valid argument for type of run: LOCAL or JOB ! 
+    exit 1
+fi
