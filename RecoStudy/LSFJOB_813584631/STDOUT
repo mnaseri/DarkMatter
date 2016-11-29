@@ -1,223 +1,0 @@
-@(#)CERN job starter $Date: 2010/06/23 14:22:16 $
-Working directory is </pool/lsf/mnaseri/813584631> on <b68ba44cf8.cern.ch>
-
-
-
-
- OUTPUT NAME IS:    /afs/cern.ch/work/m/mnaseri/work/13TeVAnalyses/DarkMatter_Codex/CMSSW_7_1_21_patch1/src/DarkMatter/RecoStudy/OutFiles_PreSelection/JOB_11-29-16/Main/WJetsToLNu.root
-
- INPUT NAME IS:   /afs/cern.ch/work/m/mnaseri/work/13TeVAnalyses/DarkMatter_Codex/CMSSW_7_1_21_patch1/src/DarkMatter/RecoStudy/../ROOT80X/WJetsToLNu_HT-100To200.root
-
- INPUT NAME IS:   /afs/cern.ch/work/m/mnaseri/work/13TeVAnalyses/DarkMatter_Codex/CMSSW_7_1_21_patch1/src/DarkMatter/RecoStudy/../ROOT80X/WJetsToLNu_HT-1200To2500.root
-
- INPUT NAME IS:   /afs/cern.ch/work/m/mnaseri/work/13TeVAnalyses/DarkMatter_Codex/CMSSW_7_1_21_patch1/src/DarkMatter/RecoStudy/../ROOT80X/WJetsToLNu_HT-200To400.root
-
- INPUT NAME IS:   /afs/cern.ch/work/m/mnaseri/work/13TeVAnalyses/DarkMatter_Codex/CMSSW_7_1_21_patch1/src/DarkMatter/RecoStudy/../ROOT80X/WJetsToLNu_HT-2500ToInf.root
-
- INPUT NAME IS:   /afs/cern.ch/work/m/mnaseri/work/13TeVAnalyses/DarkMatter_Codex/CMSSW_7_1_21_patch1/src/DarkMatter/RecoStudy/../ROOT80X/WJetsToLNu_HT-400To600.root
-
- INPUT NAME IS:   /afs/cern.ch/work/m/mnaseri/work/13TeVAnalyses/DarkMatter_Codex/CMSSW_7_1_21_patch1/src/DarkMatter/RecoStudy/../ROOT80X/WJetsToLNu_HT-600To800.root
-
- INPUT NAME IS:   /afs/cern.ch/work/m/mnaseri/work/13TeVAnalyses/DarkMatter_Codex/CMSSW_7_1_21_patch1/src/DarkMatter/RecoStudy/../ROOT80X/WJetsToLNu_HT-800To1200.root
-
- INPUT NAME IS:   /afs/cern.ch/work/m/mnaseri/work/13TeVAnalyses/DarkMatter_Codex/CMSSW_7_1_21_patch1/src/DarkMatter/RecoStudy/../ROOT80X/WJetsToLNu_Inc.root
-
-  Now is running on ------->   /afs/cern.ch/work/m/mnaseri/work/13TeVAnalyses/DarkMatter_Codex/CMSSW_7_1_21_patch1/src/DarkMatter/RecoStudy/../ROOT80X/WJetsToLNu_HT-100To200.root
-Number of proccessed evenets for DYJetsToLL_M-50_Inc.root = 49876932.000000
-Number of proccessed evenets for DYJetsToLL_M-50_HT-100to200.root = 8434074.000000
-Number of proccessed evenets for DYJetsToLL_M-50_HT-200to400.root = 8683638.000000
-Number of proccessed evenets for DYJetsToLL_M-50_HT-400to600.root = 1009044.000000
-Number of proccessed evenets for DYJetsToLL_M-50_HT-600toInf.root = 4116044.000000
-Number of proccessed evenets for WJetsToLNu_Inc.root = 28062290.000000
-Number of proccessed evenets for WJetsToLNu_HT-100To200.root = 27546980.000000
-Number of proccessed evenets for WJetsToLNu_HT-200To400.root = 14888384.000000
-Number of proccessed evenets for WJetsToLNu_HT-400To600.root = 1963464.000000
-Number of proccessed evenets for WJetsToLNu_HT-600To800.root = 3722395.000000
-Number of proccessed evenets for WJetsToLNu_HT-800To1200.root = 6314257.000000
-Number of proccessed evenets for WJetsToLNu_HT-1200To2500.root = 6117120.000000
-Number of proccessed evenets for WJetsToLNu_HT-2500ToInf.root = 253561.000000
-Number of proccessed evenets for WJetsToLNu_Inc.root = 28062290.000000
-Number of proccessed evenets for WJetsToLNu_HT-100To200.root = 27546980.000000
-Number of proccessed evenets for WJetsToLNu_HT-200To400.root = 14888384.000000
-Number of proccessed evenets for WJetsToLNu_HT-400To600.root = 1963464.000000
-Number of proccessed evenets for WJetsToLNu_HT-600To800.root = 3722395.000000
-Number of proccessed evenets for WJetsToLNu_HT-800To1200.root = 6314257.000000
-Number of proccessed evenets for WJetsToLNu_HT-1200To2500.root = 6117120.000000
-Number of proccessed evenets for WJetsToLNu_HT-2500ToInf.root = 253561.000000
-nentries_wtn====583192
-  Processed events:        0 of   583192   Processed events:    10000 of   583192   Processed events:    20000 of   583192   Processed events:    30000 of   583192   Processed events:    40000 of   583192   Processed events:    50000 of   583192   Processed events:    60000 of   583192   Processed events:    70000 of   583192   Processed events:    80000 of   583192   Processed events:    90000 of   583192   Processed events:   100000 of   583192   Processed events:   110000 of   583192   Processed events:   120000 of   583192   Processed events:   130000 of   583192   Processed events:   140000 of   583192   Processed events:   150000 of   583192   Processed events:   160000 of   583192   Processed events:   170000 of   583192   Processed events:   180000 of   583192   Processed events:   190000 of   583192   Processed events:   200000 of   583192   Processed events:   210000 of   583192   Processed events:   220000 of   583192   Processed events:   230000 of   583192   Processed events:   240000 of   583192   Processed events:   250000 of   583192   Processed events:   260000 of   583192   Processed events:   270000 of   583192   Processed events:   280000 of   583192   Processed events:   290000 of   583192   Processed events:   300000 of   583192   Processed events:   310000 of   583192   Processed events:   320000 of   583192   Processed events:   330000 of   583192   Processed events:   340000 of   583192   Processed events:   350000 of   583192   Processed events:   360000 of   583192   Processed events:   370000 of   583192   Processed events:   380000 of   583192   Processed events:   390000 of   583192   Processed events:   400000 of   583192   Processed events:   410000 of   583192   Processed events:   420000 of   583192   Processed events:   430000 of   583192   Processed events:   440000 of   583192   Processed events:   450000 of   583192   Processed events:   460000 of   583192   Processed events:   470000 of   583192   Processed events:   480000 of   583192   Processed events:   490000 of   583192   Processed events:   500000 of   583192   Processed events:   510000 of   583192   Processed events:   520000 of   583192   Processed events:   530000 of   583192   Processed events:   540000 of   583192   Processed events:   550000 of   583192   Processed events:   560000 of   583192   Processed events:   570000 of   583192   Processed events:   580000 of   583192 
-  Now is running on ------->   /afs/cern.ch/work/m/mnaseri/work/13TeVAnalyses/DarkMatter_Codex/CMSSW_7_1_21_patch1/src/DarkMatter/RecoStudy/../ROOT80X/WJetsToLNu_HT-1200To2500.root
-Number of proccessed evenets for DYJetsToLL_M-50_Inc.root = 49876932.000000
-Number of proccessed evenets for DYJetsToLL_M-50_HT-100to200.root = 8434074.000000
-Number of proccessed evenets for DYJetsToLL_M-50_HT-200to400.root = 8683638.000000
-Number of proccessed evenets for DYJetsToLL_M-50_HT-400to600.root = 1009044.000000
-Number of proccessed evenets for DYJetsToLL_M-50_HT-600toInf.root = 4116044.000000
-Number of proccessed evenets for WJetsToLNu_Inc.root = 28062290.000000
-Number of proccessed evenets for WJetsToLNu_HT-100To200.root = 27546980.000000
-Number of proccessed evenets for WJetsToLNu_HT-200To400.root = 14888384.000000
-Number of proccessed evenets for WJetsToLNu_HT-400To600.root = 1963464.000000
-Number of proccessed evenets for WJetsToLNu_HT-600To800.root = 3722395.000000
-Number of proccessed evenets for WJetsToLNu_HT-800To1200.root = 6314257.000000
-Number of proccessed evenets for WJetsToLNu_HT-1200To2500.root = 6117120.000000
-Number of proccessed evenets for WJetsToLNu_HT-2500ToInf.root = 253561.000000
-Number of proccessed evenets for WJetsToLNu_Inc.root = 28062290.000000
-Number of proccessed evenets for WJetsToLNu_HT-100To200.root = 27546980.000000
-Number of proccessed evenets for WJetsToLNu_HT-200To400.root = 14888384.000000
-Number of proccessed evenets for WJetsToLNu_HT-400To600.root = 1963464.000000
-Number of proccessed evenets for WJetsToLNu_HT-600To800.root = 3722395.000000
-Number of proccessed evenets for WJetsToLNu_HT-800To1200.root = 6314257.000000
-Number of proccessed evenets for WJetsToLNu_HT-1200To2500.root = 6117120.000000
-Number of proccessed evenets for WJetsToLNu_HT-2500ToInf.root = 253561.000000
-nentries_wtn====723611
-  Processed events:        0 of   723611   Processed events:    10000 of   723611   Processed events:    20000 of   723611   Processed events:    30000 of   723611   Processed events:    40000 of   723611   Processed events:    50000 of   723611   Processed events:    60000 of   723611   Processed events:    70000 of   723611   Processed events:    80000 of   723611   Processed events:    90000 of   723611   Processed events:   100000 of   723611   Processed events:   110000 of   723611   Processed events:   120000 of   723611   Processed events:   130000 of   723611   Processed events:   140000 of   723611   Processed events:   150000 of   723611   Processed events:   160000 of   723611   Processed events:   170000 of   723611   Processed events:   180000 of   723611   Processed events:   190000 of   723611   Processed events:   200000 of   723611   Processed events:   210000 of   723611   Processed events:   220000 of   723611   Processed events:   230000 of   723611   Processed events:   240000 of   723611   Processed events:   250000 of   723611   Processed events:   260000 of   723611   Processed events:   270000 of   723611   Processed events:   280000 of   723611   Processed events:   290000 of   723611   Processed events:   300000 of   723611   Processed events:   310000 of   723611   Processed events:   320000 of   723611   Processed events:   330000 of   723611   Processed events:   340000 of   723611   Processed events:   350000 of   723611   Processed events:   360000 of   723611   Processed events:   370000 of   723611   Processed events:   380000 of   723611   Processed events:   390000 of   723611   Processed events:   400000 of   723611   Processed events:   410000 of   723611   Processed events:   420000 of   723611   Processed events:   430000 of   723611   Processed events:   440000 of   723611   Processed events:   450000 of   723611   Processed events:   460000 of   723611   Processed events:   470000 of   723611   Processed events:   480000 of   723611   Processed events:   490000 of   723611   Processed events:   500000 of   723611   Processed events:   510000 of   723611   Processed events:   520000 of   723611   Processed events:   530000 of   723611   Processed events:   540000 of   723611   Processed events:   550000 of   723611   Processed events:   560000 of   723611   Processed events:   570000 of   723611   Processed events:   580000 of   723611   Processed events:   590000 of   723611   Processed events:   600000 of   723611   Processed events:   610000 of   723611   Processed events:   620000 of   723611   Processed events:   630000 of   723611   Processed events:   640000 of   723611   Processed events:   650000 of   723611   Processed events:   660000 of   723611   Processed events:   670000 of   723611   Processed events:   680000 of   723611   Processed events:   690000 of   723611   Processed events:   700000 of   723611   Processed events:   710000 of   723611   Processed events:   720000 of   723611 
-  Now is running on ------->   /afs/cern.ch/work/m/mnaseri/work/13TeVAnalyses/DarkMatter_Codex/CMSSW_7_1_21_patch1/src/DarkMatter/RecoStudy/../ROOT80X/WJetsToLNu_HT-200To400.root
-Number of proccessed evenets for DYJetsToLL_M-50_Inc.root = 49876932.000000
-Number of proccessed evenets for DYJetsToLL_M-50_HT-100to200.root = 8434074.000000
-Number of proccessed evenets for DYJetsToLL_M-50_HT-200to400.root = 8683638.000000
-Number of proccessed evenets for DYJetsToLL_M-50_HT-400to600.root = 1009044.000000
-Number of proccessed evenets for DYJetsToLL_M-50_HT-600toInf.root = 4116044.000000
-Number of proccessed evenets for WJetsToLNu_Inc.root = 28062290.000000
-Number of proccessed evenets for WJetsToLNu_HT-100To200.root = 27546980.000000
-Number of proccessed evenets for WJetsToLNu_HT-200To400.root = 14888384.000000
-Number of proccessed evenets for WJetsToLNu_HT-400To600.root = 1963464.000000
-Number of proccessed evenets for WJetsToLNu_HT-600To800.root = 3722395.000000
-Number of proccessed evenets for WJetsToLNu_HT-800To1200.root = 6314257.000000
-Number of proccessed evenets for WJetsToLNu_HT-1200To2500.root = 6117120.000000
-Number of proccessed evenets for WJetsToLNu_HT-2500ToInf.root = 253561.000000
-Number of proccessed evenets for WJetsToLNu_Inc.root = 28062290.000000
-Number of proccessed evenets for WJetsToLNu_HT-100To200.root = 27546980.000000
-Number of proccessed evenets for WJetsToLNu_HT-200To400.root = 14888384.000000
-Number of proccessed evenets for WJetsToLNu_HT-400To600.root = 1963464.000000
-Number of proccessed evenets for WJetsToLNu_HT-600To800.root = 3722395.000000
-Number of proccessed evenets for WJetsToLNu_HT-800To1200.root = 6314257.000000
-Number of proccessed evenets for WJetsToLNu_HT-1200To2500.root = 6117120.000000
-Number of proccessed evenets for WJetsToLNu_HT-2500ToInf.root = 253561.000000
-nentries_wtn====713991
-  Processed events:        0 of   713991   Processed events:    10000 of   713991   Processed events:    20000 of   713991   Processed events:    30000 of   713991   Processed events:    40000 of   713991   Processed events:    50000 of   713991   Processed events:    60000 of   713991   Processed events:    70000 of   713991   Processed events:    80000 of   713991   Processed events:    90000 of   713991   Processed events:   100000 of   713991   Processed events:   110000 of   713991   Processed events:   120000 of   713991   Processed events:   130000 of   713991   Processed events:   140000 of   713991   Processed events:   150000 of   713991   Processed events:   160000 of   713991   Processed events:   170000 of   713991   Processed events:   180000 of   713991   Processed events:   190000 of   713991   Processed events:   200000 of   713991   Processed events:   210000 of   713991   Processed events:   220000 of   713991   Processed events:   230000 of   713991   Processed events:   240000 of   713991   Processed events:   250000 of   713991   Processed events:   260000 of   713991   Processed events:   270000 of   713991   Processed events:   280000 of   713991   Processed events:   290000 of   713991   Processed events:   300000 of   713991   Processed events:   310000 of   713991   Processed events:   320000 of   713991   Processed events:   330000 of   713991   Processed events:   340000 of   713991   Processed events:   350000 of   713991   Processed events:   360000 of   713991   Processed events:   370000 of   713991   Processed events:   380000 of   713991   Processed events:   390000 of   713991   Processed events:   400000 of   713991   Processed events:   410000 of   713991   Processed events:   420000 of   713991   Processed events:   430000 of   713991   Processed events:   440000 of   713991   Processed events:   450000 of   713991   Processed events:   460000 of   713991   Processed events:   470000 of   713991   Processed events:   480000 of   713991   Processed events:   490000 of   713991   Processed events:   500000 of   713991   Processed events:   510000 of   713991   Processed events:   520000 of   713991   Processed events:   530000 of   713991   Processed events:   540000 of   713991   Processed events:   550000 of   713991   Processed events:   560000 of   713991   Processed events:   570000 of   713991   Processed events:   580000 of   713991   Processed events:   590000 of   713991   Processed events:   600000 of   713991   Processed events:   610000 of   713991   Processed events:   620000 of   713991   Processed events:   630000 of   713991   Processed events:   640000 of   713991   Processed events:   650000 of   713991   Processed events:   660000 of   713991   Processed events:   670000 of   713991   Processed events:   680000 of   713991   Processed events:   690000 of   713991   Processed events:   700000 of   713991   Processed events:   710000 of   713991 
-  Now is running on ------->   /afs/cern.ch/work/m/mnaseri/work/13TeVAnalyses/DarkMatter_Codex/CMSSW_7_1_21_patch1/src/DarkMatter/RecoStudy/../ROOT80X/WJetsToLNu_HT-2500ToInf.root
-Number of proccessed evenets for DYJetsToLL_M-50_Inc.root = 49876932.000000
-Number of proccessed evenets for DYJetsToLL_M-50_HT-100to200.root = 8434074.000000
-Number of proccessed evenets for DYJetsToLL_M-50_HT-200to400.root = 8683638.000000
-Number of proccessed evenets for DYJetsToLL_M-50_HT-400to600.root = 1009044.000000
-Number of proccessed evenets for DYJetsToLL_M-50_HT-600toInf.root = 4116044.000000
-Number of proccessed evenets for WJetsToLNu_Inc.root = 28062290.000000
-Number of proccessed evenets for WJetsToLNu_HT-100To200.root = 27546980.000000
-Number of proccessed evenets for WJetsToLNu_HT-200To400.root = 14888384.000000
-Number of proccessed evenets for WJetsToLNu_HT-400To600.root = 1963464.000000
-Number of proccessed evenets for WJetsToLNu_HT-600To800.root = 3722395.000000
-Number of proccessed evenets for WJetsToLNu_HT-800To1200.root = 6314257.000000
-Number of proccessed evenets for WJetsToLNu_HT-1200To2500.root = 6117120.000000
-Number of proccessed evenets for WJetsToLNu_HT-2500ToInf.root = 253561.000000
-Number of proccessed evenets for WJetsToLNu_Inc.root = 28062290.000000
-Number of proccessed evenets for WJetsToLNu_HT-100To200.root = 27546980.000000
-Number of proccessed evenets for WJetsToLNu_HT-200To400.root = 14888384.000000
-Number of proccessed evenets for WJetsToLNu_HT-400To600.root = 1963464.000000
-Number of proccessed evenets for WJetsToLNu_HT-600To800.root = 3722395.000000
-Number of proccessed evenets for WJetsToLNu_HT-800To1200.root = 6314257.000000
-Number of proccessed evenets for WJetsToLNu_HT-1200To2500.root = 6117120.000000
-Number of proccessed evenets for WJetsToLNu_HT-2500ToInf.root = 253561.000000
-nentries_wtn====34073
-  Processed events:        0 of    34073   Processed events:    10000 of    34073   Processed events:    20000 of    34073   Processed events:    30000 of    34073 
-  Now is running on ------->   /afs/cern.ch/work/m/mnaseri/work/13TeVAnalyses/DarkMatter_Codex/CMSSW_7_1_21_patch1/src/DarkMatter/RecoStudy/../ROOT80X/WJetsToLNu_HT-400To600.root
-Number of proccessed evenets for DYJetsToLL_M-50_Inc.root = 49876932.000000
-Number of proccessed evenets for DYJetsToLL_M-50_HT-100to200.root = 8434074.000000
-Number of proccessed evenets for DYJetsToLL_M-50_HT-200to400.root = 8683638.000000
-Number of proccessed evenets for DYJetsToLL_M-50_HT-400to600.root = 1009044.000000
-Number of proccessed evenets for DYJetsToLL_M-50_HT-600toInf.root = 4116044.000000
-Number of proccessed evenets for WJetsToLNu_Inc.root = 28062290.000000
-Number of proccessed evenets for WJetsToLNu_HT-100To200.root = 27546980.000000
-Number of proccessed evenets for WJetsToLNu_HT-200To400.root = 14888384.000000
-Number of proccessed evenets for WJetsToLNu_HT-400To600.root = 1963464.000000
-Number of proccessed evenets for WJetsToLNu_HT-600To800.root = 3722395.000000
-Number of proccessed evenets for WJetsToLNu_HT-800To1200.root = 6314257.000000
-Number of proccessed evenets for WJetsToLNu_HT-1200To2500.root = 6117120.000000
-Number of proccessed evenets for WJetsToLNu_HT-2500ToInf.root = 253561.000000
-Number of proccessed evenets for WJetsToLNu_Inc.root = 28062290.000000
-Number of proccessed evenets for WJetsToLNu_HT-100To200.root = 27546980.000000
-Number of proccessed evenets for WJetsToLNu_HT-200To400.root = 14888384.000000
-Number of proccessed evenets for WJetsToLNu_HT-400To600.root = 1963464.000000
-Number of proccessed evenets for WJetsToLNu_HT-600To800.root = 3722395.000000
-Number of proccessed evenets for WJetsToLNu_HT-800To1200.root = 6314257.000000
-Number of proccessed evenets for WJetsToLNu_HT-1200To2500.root = 6117120.000000
-Number of proccessed evenets for WJetsToLNu_HT-2500ToInf.root = 253561.000000
-nentries_wtn====145697
-  Processed events:        0 of   145697   Processed events:    10000 of   145697   Processed events:    20000 of   145697   Processed events:    30000 of   145697   Processed events:    40000 of   145697   Processed events:    50000 of   145697   Processed events:    60000 of   145697   Processed events:    70000 of   145697   Processed events:    80000 of   145697   Processed events:    90000 of   145697   Processed events:   100000 of   145697   Processed events:   110000 of   145697   Processed events:   120000 of   145697   Processed events:   130000 of   145697   Processed events:   140000 of   145697 
-  Now is running on ------->   /afs/cern.ch/work/m/mnaseri/work/13TeVAnalyses/DarkMatter_Codex/CMSSW_7_1_21_patch1/src/DarkMatter/RecoStudy/../ROOT80X/WJetsToLNu_HT-600To800.root
-Number of proccessed evenets for DYJetsToLL_M-50_Inc.root = 49876932.000000
-Number of proccessed evenets for DYJetsToLL_M-50_HT-100to200.root = 8434074.000000
-Number of proccessed evenets for DYJetsToLL_M-50_HT-200to400.root = 8683638.000000
-Number of proccessed evenets for DYJetsToLL_M-50_HT-400to600.root = 1009044.000000
-Number of proccessed evenets for DYJetsToLL_M-50_HT-600toInf.root = 4116044.000000
-Number of proccessed evenets for WJetsToLNu_Inc.root = 28062290.000000
-Number of proccessed evenets for WJetsToLNu_HT-100To200.root = 27546980.000000
-Number of proccessed evenets for WJetsToLNu_HT-200To400.root = 14888384.000000
-Number of proccessed evenets for WJetsToLNu_HT-400To600.root = 1963464.000000
-Number of proccessed evenets for WJetsToLNu_HT-600To800.root = 3722395.000000
-Number of proccessed evenets for WJetsToLNu_HT-800To1200.root = 6314257.000000
-Number of proccessed evenets for WJetsToLNu_HT-1200To2500.root = 6117120.000000
-Number of proccessed evenets for WJetsToLNu_HT-2500ToInf.root = 253561.000000
-Number of proccessed evenets for WJetsToLNu_Inc.root = 28062290.000000
-Number of proccessed evenets for WJetsToLNu_HT-100To200.root = 27546980.000000
-Number of proccessed evenets for WJetsToLNu_HT-200To400.root = 14888384.000000
-Number of proccessed evenets for WJetsToLNu_HT-400To600.root = 1963464.000000
-Number of proccessed evenets for WJetsToLNu_HT-600To800.root = 3722395.000000
-Number of proccessed evenets for WJetsToLNu_HT-800To1200.root = 6314257.000000
-Number of proccessed evenets for WJetsToLNu_HT-1200To2500.root = 6117120.000000
-Number of proccessed evenets for WJetsToLNu_HT-2500ToInf.root = 253561.000000
-nentries_wtn====336010
-  Processed events:        0 of   336010   Processed events:    10000 of   336010   Processed events:    20000 of   336010   Processed events:    30000 of   336010   Processed events:    40000 of   336010   Processed events:    50000 of   336010   Processed events:    60000 of   336010   Processed events:    70000 of   336010   Processed events:    80000 of   336010   Processed events:    90000 of   336010   Processed events:   100000 of   336010   Processed events:   110000 of   336010   Processed events:   120000 of   336010   Processed events:   130000 of   336010   Processed events:   140000 of   336010   Processed events:   150000 of   336010   Processed events:   160000 of   336010   Processed events:   170000 of   336010   Processed events:   180000 of   336010   Processed events:   190000 of   336010   Processed events:   200000 of   336010   Processed events:   210000 of   336010   Processed events:   220000 of   336010   Processed events:   230000 of   336010   Processed events:   240000 of   336010   Processed events:   250000 of   336010   Processed events:   260000 of   336010   Processed events:   270000 of   336010   Processed events:   280000 of   336010   Processed events:   290000 of   336010   Processed events:   300000 of   336010   Processed events:   310000 of   336010   Processed events:   320000 of   336010   Processed events:   330000 of   336010 
-  Now is running on ------->   /afs/cern.ch/work/m/mnaseri/work/13TeVAnalyses/DarkMatter_Codex/CMSSW_7_1_21_patch1/src/DarkMatter/RecoStudy/../ROOT80X/WJetsToLNu_HT-800To1200.root
-Number of proccessed evenets for DYJetsToLL_M-50_Inc.root = 49876932.000000
-Number of proccessed evenets for DYJetsToLL_M-50_HT-100to200.root = 8434074.000000
-Number of proccessed evenets for DYJetsToLL_M-50_HT-200to400.root = 8683638.000000
-Number of proccessed evenets for DYJetsToLL_M-50_HT-400to600.root = 1009044.000000
-Number of proccessed evenets for DYJetsToLL_M-50_HT-600toInf.root = 4116044.000000
-Number of proccessed evenets for WJetsToLNu_Inc.root = 28062290.000000
-Number of proccessed evenets for WJetsToLNu_HT-100To200.root = 27546980.000000
-Number of proccessed evenets for WJetsToLNu_HT-200To400.root = 14888384.000000
-Number of proccessed evenets for WJetsToLNu_HT-400To600.root = 1963464.000000
-Number of proccessed evenets for WJetsToLNu_HT-600To800.root = 3722395.000000
-Number of proccessed evenets for WJetsToLNu_HT-800To1200.root = 6314257.000000
-Number of proccessed evenets for WJetsToLNu_HT-1200To2500.root = 6117120.000000
-Number of proccessed evenets for WJetsToLNu_HT-2500ToInf.root = 253561.000000
-Number of proccessed evenets for WJetsToLNu_Inc.root = 28062290.000000
-Number of proccessed evenets for WJetsToLNu_HT-100To200.root = 27546980.000000
-Number of proccessed evenets for WJetsToLNu_HT-200To400.root = 14888384.000000
-Number of proccessed evenets for WJetsToLNu_HT-400To600.root = 1963464.000000
-Number of proccessed evenets for WJetsToLNu_HT-600To800.root = 3722395.000000
-Number of proccessed evenets for WJetsToLNu_HT-800To1200.root = 6314257.000000
-Number of proccessed evenets for WJetsToLNu_HT-1200To2500.root = 6117120.000000
-Number of proccessed evenets for WJetsToLNu_HT-2500ToInf.root = 253561.000000
-nentries_wtn====649066
-  Processed events:        0 of   649066   Processed events:    10000 of   649066   Processed events:    20000 of   649066   Processed events:    30000 of   649066   Processed events:    40000 of   649066   Processed events:    50000 of   649066   Processed events:    60000 of   649066   Processed events:    70000 of   649066   Processed events:    80000 of   649066   Processed events:    90000 of   649066   Processed events:   100000 of   649066   Processed events:   110000 of   649066   Processed events:   120000 of   649066   Processed events:   130000 of   649066   Processed events:   140000 of   649066   Processed events:   150000 of   649066   Processed events:   160000 of   649066   Processed events:   170000 of   649066   Processed events:   180000 of   649066   Processed events:   190000 of   649066   Processed events:   200000 of   649066   Processed events:   210000 of   649066   Processed events:   220000 of   649066   Processed events:   230000 of   649066   Processed events:   240000 of   649066   Processed events:   250000 of   649066   Processed events:   260000 of   649066   Processed events:   270000 of   649066   Processed events:   280000 of   649066   Processed events:   290000 of   649066   Processed events:   300000 of   649066   Processed events:   310000 of   649066   Processed events:   320000 of   649066   Processed events:   330000 of   649066   Processed events:   340000 of   649066   Processed events:   350000 of   649066   Processed events:   360000 of   649066   Processed events:   370000 of   649066   Processed events:   380000 of   649066   Processed events:   390000 of   649066   Processed events:   400000 of   649066   Processed events:   410000 of   649066   Processed events:   420000 of   649066   Processed events:   430000 of   649066   Processed events:   440000 of   649066   Processed events:   450000 of   649066   Processed events:   460000 of   649066   Processed events:   470000 of   649066   Processed events:   480000 of   649066   Processed events:   490000 of   649066   Processed events:   500000 of   649066   Processed events:   510000 of   649066   Processed events:   520000 of   649066   Processed events:   530000 of   649066   Processed events:   540000 of   649066   Processed events:   550000 of   649066   Processed events:   560000 of   649066   Processed events:   570000 of   649066   Processed events:   580000 of   649066   Processed events:   590000 of   649066   Processed events:   600000 of   649066   Processed events:   610000 of   649066   Processed events:   620000 of   649066   Processed events:   630000 of   649066   Processed events:   640000 of   649066 
-  Now is running on ------->   /afs/cern.ch/work/m/mnaseri/work/13TeVAnalyses/DarkMatter_Codex/CMSSW_7_1_21_patch1/src/DarkMatter/RecoStudy/../ROOT80X/WJetsToLNu_Inc.root
-Number of proccessed evenets for DYJetsToLL_M-50_Inc.root = 49876932.000000
-Number of proccessed evenets for DYJetsToLL_M-50_HT-100to200.root = 8434074.000000
-Number of proccessed evenets for DYJetsToLL_M-50_HT-200to400.root = 8683638.000000
-Number of proccessed evenets for DYJetsToLL_M-50_HT-400to600.root = 1009044.000000
-Number of proccessed evenets for DYJetsToLL_M-50_HT-600toInf.root = 4116044.000000
-Number of proccessed evenets for WJetsToLNu_Inc.root = 28062290.000000
-Number of proccessed evenets for WJetsToLNu_HT-100To200.root = 27546980.000000
-Number of proccessed evenets for WJetsToLNu_HT-200To400.root = 14888384.000000
-Number of proccessed evenets for WJetsToLNu_HT-400To600.root = 1963464.000000
-Number of proccessed evenets for WJetsToLNu_HT-600To800.root = 3722395.000000
-Number of proccessed evenets for WJetsToLNu_HT-800To1200.root = 6314257.000000
-Number of proccessed evenets for WJetsToLNu_HT-1200To2500.root = 6117120.000000
-Number of proccessed evenets for WJetsToLNu_HT-2500ToInf.root = 253561.000000
-Number of proccessed evenets for WJetsToLNu_Inc.root = 28062290.000000
-Number of proccessed evenets for WJetsToLNu_HT-100To200.root = 27546980.000000
-Number of proccessed evenets for WJetsToLNu_HT-200To400.root = 14888384.000000
-Number of proccessed evenets for WJetsToLNu_HT-400To600.root = 1963464.000000
-Number of proccessed evenets for WJetsToLNu_HT-600To800.root = 3722395.000000
-Number of proccessed evenets for WJetsToLNu_HT-800To1200.root = 6314257.000000
-Number of proccessed evenets for WJetsToLNu_HT-1200To2500.root = 6117120.000000
-Number of proccessed evenets for WJetsToLNu_HT-2500ToInf.root = 253561.000000
-nentries_wtn====36318
-  Processed events:        0 of    36318   Processed events:    10000 of    36318   Processed events:    20000 of    36318   Processed events:    30000 of    36318 
- *** Break *** bus error
-
-Job finished at ‫سه‌شنبه ۲۹ نوامبر ۱۶، ساعت ۱۳:۳۹:۱۰ (CET)‬ on node 
- under linux version Scientific Linux CERN SLC release 6.8 (Carbon)
-
-CERN statistics: This process used approximately : 1:32:35 KSI2K hours (5555 KSI2K seconds)
-                 This process corresponds to     : 6:01:07 HS06  hours (21667 HS06  seconds)
