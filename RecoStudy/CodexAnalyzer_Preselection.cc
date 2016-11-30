@@ -444,9 +444,12 @@ int main(int argc, char** argv) {
                     //  TTbar control region Categorization
                     //###############################################################################################
                     const int size_CR = 3;
-                    bool signalRegion = numTau+numZboson + numElectron + numBJet < 1 ;
-                    bool TTcontrolRegion = (numTau <1 && numZboson < 1 && numElectron > 0 && numBJet > 0);
-                    bool DYcontrolRegion = (numTau <1 && numZboson > 0 && numElectron < 1 && numBJet < 1 );
+                    bool signalRegion = numTau+numZboson + numElectron  < 1 ;
+                    bool TTcontrolRegion = (numTau <1 && numZboson < 1 && numElectron > 0 );
+                    bool DYcontrolRegion = (numTau <1 && numZboson > 0 && numElectron < 1 );
+//                    bool signalRegion = numTau+numZboson + numElectron + numBJet < 1 ;
+//                    bool TTcontrolRegion = (numTau <1 && numZboson < 1 && numElectron > 0 && numBJet > 0);
+//                    bool DYcontrolRegion = (numTau <1 && numZboson > 0 && numElectron < 1 && numBJet < 1 );
                     bool region_category[size_CR] = {signalRegion,TTcontrolRegion,DYcontrolRegion};
                     std::string region_Cat[size_CR] = {"", "_ttbarCR","_DYCR"};
                     

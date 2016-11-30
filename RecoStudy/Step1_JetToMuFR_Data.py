@@ -35,6 +35,7 @@ import os
 ROOT.gROOT.SetBatch(True)
 SubRootDir = 'OutFiles_QCD/'
 #SubRootDir = 'OutFiles_PreSelectionQCD/'
+#SubRootDir = 'OutFiles_PreSelection/'
 
 
 verbos_ = False
@@ -99,8 +100,8 @@ def _FileReturn(Name, channel,HistoName):
     print "0--------->>>>>>  ",SubRootDir,Name, channel+HistoName
     if not os.path.exists("Extra"):
         os.makedirs("Extra")
-    NewFile=TFile("Extra/XXX.root","RECREATE")
-    NewFile.WriteObject(Histo,"XXX")
+    NewFile=TFile("Extra/HISTO.root","RECREATE")
+    NewFile.WriteObject(Histo,"HISTO")
     myfile.Close()
     return NewFile
 
@@ -139,12 +140,12 @@ def MakeTheHistogram(channel,NormQCD,ShapeQCD,Binning,doBinning):
             
             
             
-            SingleTSampleQCDShapeHist=SingleTSampleQCDShape.Get("XXX") ; print  "SingleTSampleQCDShapeHist= ", SingleTSampleQCDShapeHist.Integral()
-            VVSampleQCDShapeHist=VVSampleQCDShape.Get("XXX") ; print  "VVSampleQCDShapeHist= ", VVSampleQCDShapeHist.Integral()
-            TTSampleQCDShapeHist=TTSampleQCDShape.Get("XXX") ; print  "TTSampleQCDShapeHist= ", TTSampleQCDShapeHist.Integral()
-            ZTTSampleQCDShapeHist=ZTTSampleQCDShape.Get("XXX") ; print  "ZTTSampleQCDShapeHist= ", ZTTSampleQCDShapeHist.Integral()
-            WSampleQCDShapeHist=WSampleQCDShape.Get("XXX") ; print  "WSampleQCDShapeHist= ", WSampleQCDShapeHist.Integral()
-            DataSampleQCDShapeHist=DataSampleQCDShape.Get("XXX") ; print  "DataSampleQCDShapeHist= ", DataSampleQCDShapeHist.Integral()
+            SingleTSampleQCDShapeHist=SingleTSampleQCDShape.Get("HISTO") ; print  "SingleTSampleQCDShapeHist= ", SingleTSampleQCDShapeHist.Integral()
+            VVSampleQCDShapeHist=VVSampleQCDShape.Get("HISTO") ; print  "VVSampleQCDShapeHist= ", VVSampleQCDShapeHist.Integral()
+            TTSampleQCDShapeHist=TTSampleQCDShape.Get("HISTO") ; print  "TTSampleQCDShapeHist= ", TTSampleQCDShapeHist.Integral()
+            ZTTSampleQCDShapeHist=ZTTSampleQCDShape.Get("HISTO") ; print  "ZTTSampleQCDShapeHist= ", ZTTSampleQCDShapeHist.Integral()
+            WSampleQCDShapeHist=WSampleQCDShape.Get("HISTO") ; print  "WSampleQCDShapeHist= ", WSampleQCDShapeHist.Integral()
+            DataSampleQCDShapeHist=DataSampleQCDShape.Get("HISTO") ; print  "DataSampleQCDShapeHist= ", DataSampleQCDShapeHist.Integral()
             
             if (SingleTSampleQCDShapeHist) : DataSampleQCDShapeHist.Add(SingleTSampleQCDShapeHist, -1)
             if (VVSampleQCDShapeHist): DataSampleQCDShapeHist.Add(VVSampleQCDShapeHist, -1)
@@ -153,12 +154,12 @@ def MakeTheHistogram(channel,NormQCD,ShapeQCD,Binning,doBinning):
             DataSampleQCDShapeHist.Add(WSampleQCDShapeHist, -1)
             
             
-            SingleTSampleQCDNormHist=SingleTSampleQCDNorm.Get("XXX")
-            VVSampleQCDNormHist=VVSampleQCDNorm.Get("XXX")
-            TTSampleQCDNormHist=TTSampleQCDNorm.Get("XXX")
-            ZTTSampleQCDNormHist=ZTTSampleQCDNorm.Get("XXX")
-            WSampleQCDNormHist=WSampleQCDNorm.Get("XXX")
-            DataSampleQCDNormHist=DataSampleQCDNorm.Get("XXX")
+            SingleTSampleQCDNormHist=SingleTSampleQCDNorm.Get("HISTO")
+            VVSampleQCDNormHist=VVSampleQCDNorm.Get("HISTO")
+            TTSampleQCDNormHist=TTSampleQCDNorm.Get("HISTO")
+            ZTTSampleQCDNormHist=ZTTSampleQCDNorm.Get("HISTO")
+            WSampleQCDNormHist=WSampleQCDNorm.Get("HISTO")
+            DataSampleQCDNormHist=DataSampleQCDNorm.Get("HISTO")
             
             SingleT_qcd=0;
             if (SingleTSampleQCDNormHist): SingleT_qcd=SingleTSampleQCDNormHist.Integral()
@@ -184,8 +185,8 @@ def MakeTheHistogram(channel,NormQCD,ShapeQCD,Binning,doBinning):
             else : RebinedHist= DataSampleQCDShapeHist
             #            tDirectory.WriteObject(RebinedHist,NameOut)
             
-            NewShapeForQCD=TFile("Extra/XXX.root","RECREATE")
-            NewShapeForQCD.WriteObject(RebinedHist,"XXX")
+            NewShapeForQCD=TFile("Extra/HISTO.root","RECREATE")
+            NewShapeForQCD.WriteObject(RebinedHist,"HISTO")
             NewShapeForQCD.WriteObject(DataSampleQCDNormHist,"data")
             NewShapeForQCD.WriteObject(WSampleQCDNormHist,"W")
             NewShapeForQCD.WriteObject(ZTTSampleQCDNormHist,"ZTT")
@@ -242,9 +243,9 @@ def Make_Mu_FakeRate(channelName):
 
     
     ShapeNum=MakeTheHistogram(channelName,HistoFakeNum,HistoFakeNum,BinningFake,1)
-    HistoNum=ShapeNum.Get("XXX")
+    HistoNum=ShapeNum.Get("HISTO")
     ShapeDeNum=MakeTheHistogram(channelName,HistoFakeDeNum,HistoFakeDeNum,BinningFake,1)
-    HistoDeNum=ShapeDeNum.Get("XXX")
+    HistoDeNum=ShapeDeNum.Get("HISTO")
     
     print "\n---------------------------------------------------------------------------\n"
     print "overal FR = ", HistoNum.Integral()/ HistoDeNum.Integral(), "\n"
