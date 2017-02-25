@@ -14,7 +14,6 @@ int main(int argc, char** argv) {
     std::string RootName_Prefix=getenv("RootName_Prefix"); 
     std::string Working_Dir=getenv("Working_Dir");
     std::string Input_Loc=getenv("Input_Loc");
-
    
     cout << "\n\n\n OUTPUT NAME IS:    " << out << endl;     //PRINTING THE OUTPUT name
     TFile *fout = TFile::Open(out.c_str(), "RECREATE");
@@ -30,7 +29,7 @@ int main(int argc, char** argv) {
         if(Input_Loc=="AFS")
         tmp_name=RootName_Prefix + *(argv+f);
         else if(Input_Loc=="EOS")
-        tmp_name=RootName_Prefix+SampleLoc+"/"+ *(argv+f);
+        tmp_name=RootName_Prefix+""+ *(argv+f);
         else std::cout<<"There is no valid name for location of input files"<<std::endl;
 
         input.push_back(tmp_name);
@@ -46,20 +45,33 @@ int main(int argc, char** argv) {
     TH1F * HistoPUMC= (TH1F *) PUMC->Get("pileup");
     HistoPUMC->Scale(1.0/HistoPUMC->Integral());
     
-    TFile * MuCorrId= TFile::Open((Working_Dir+"/"+"../interface/pileup-hists/MuonID_Z_RunBCD_prompt80X_7p65.root").c_str());
-    //    TFile * MuCorrId= TFile::Open("../interface/pileup-hists/MuonID_Z_2016runB_2p6fb.root");
-    TH2F * HistoMuId= (TH2F *) MuCorrId->Get("MC_NUM_TightIDandIPCut_DEN_genTracks_PAR_pt_spliteta_bin1/pt_abseta_ratio");
+    TFile * MuCorrId_BCDEF= TFile::Open((Working_Dir+"/"+"../interface/pileup-hists/ID_EfficienciesAndSF_BCDEF.root").c_str());    
+    TH2F * HistoMuId_BCDEF= (TH2F *) MuCorrId_BCDEF->Get("MC_NUM_TightID_DEN_genTracks_PAR_pt_eta/pt_abseta_ratio");
+
+    TFile * MuCorrId_GH= TFile::Open((Working_Dir+"/"+"../interface/pileup-hists/ID_EfficienciesAndSF_GH.root").c_str());  
+    TH2F * HistoMuId_GH= (TH2F *) MuCorrId_GH->Get("MC_NUM_TightID_DEN_genTracks_PAR_pt_eta/pt_abseta_ratio");    
+
+    TFile * MuCorrIso_BCDEF= TFile::Open((Working_Dir+"/"+"../interface/pileup-hists/Iso_EfficienciesAndSF_BCDEF.root").c_str());
+    TH2F * HistoMuIso_BCDEF= (TH2F *) MuCorrIso_BCDEF->Get("TightISO_TightID_pt_eta/pt_abseta_ratio");
+   
+    TFile * MuCorrIso_GH= TFile::Open((Working_Dir+"/"+"../interface/pileup-hists/Iso_EfficienciesAndSF_GH.root").c_str());
+    TH2F * HistoMuIso_GH= (TH2F *) MuCorrIso_GH->Get("TightISO_TightID_pt_eta/pt_abseta_ratio");
+       
+ 
+    TFile * MuCorrTrg_BCDEF= TFile::Open((Working_Dir+"/"+"../interface/pileup-hists/Trigger_EfficienciesAndSF_RunBtoF.root").c_str());  
+    TH2F * HistoMuTrg_BCDEF= (TH2F *) MuCorrTrg_BCDEF->Get("Mu50_OR_TkMu50_PtEtaBins/pt_abseta_ratio");
     
-    TFile * MuCorrIso= TFile::Open((Working_Dir+"/"+"../interface/pileup-hists/MuonIso_Z_RunBCD_prompt80X_7p65.root").c_str());
-    //    TFile * MuCorrIso= TFile::Open("../interface/pileup-hists/MuonISO_Z_2016runB_2p6fb.root");
-    TH2F * HistoMuIso= (TH2F *) MuCorrIso->Get("MC_NUM_TightRelIso_DEN_TightID_PAR_pt_spliteta_bin1/pt_abseta_ratio");
-    
-    TFile * MuCorrTrg= TFile::Open((Working_Dir+"/"+"../interface/pileup-hists/SingleMuonTrigger_Z_RunBCD_prompt80X_7p65.root").c_str());
-    //    TFile * MuCorrTrg= TFile::Open("../interface/pileup-hists/SingleMuonTrigger_Z_RunCD_Reco76X_Feb15.root");
-    TH2F * HistoMuTrg= (TH2F *) MuCorrTrg->Get("Mu45_eta2p1_PtEtaBins_Run274094_to_276097/efficienciesDATA/pt_abseta_DATA");
-    
-    
-    
+    TFile * MuCorrTrg_GH= TFile::Open((Working_Dir+"/"+"../interface/pileup-hists/Trigger_EfficienciesAndSF_Period4.root").c_str());
+    TH2F * HistoMuTrg_GH= (TH2F *) MuCorrTrg_GH->Get("Mu50_OR_TkMu50_PtEtaBins/pt_abseta_ratio");
+   
+    TFile * MuCorrTrack= TFile::Open((Working_Dir+"/"+"../interface/pileup-hists/Tracking_EfficienciesAndSF_BCDEFGH.root").c_str());
+    TGraphAsymmErrors * HistoMuTrack= (TGraphAsymmErrors *) MuCorrTrack->Get("ratio_eff_eta3_dr030e030_corr");
+   
+    TH2F* HistoMuId[2]={HistoMuId_BCDEF, HistoMuId_GH};
+    TH2F* HistoMuIso[2]={HistoMuIso_BCDEF,HistoMuIso_GH};
+    TH2F* HistoMuTrg[2]={HistoMuTrg_BCDEF, HistoMuTrg_GH};
+        
+ 
     TFile * KFactor= TFile::Open((Working_Dir+"/"+"../interface/pileup-hists/kfactors.root").c_str());
     TH1F * WLO= (TH1F *) KFactor->Get("WJets_LO/inv_pt");
     TH1F * WNLO= (TH1F *) KFactor->Get("EWKcorr/W");
@@ -253,7 +265,6 @@ int main(int argc, char** argv) {
                 
                 if (HistoTot) LumiWeight = weightCalc(HistoTot, InputROOT, genHT,WBosonPt, W_Events, DY_Events,W_EventsNLO);
                 GetGenWeight=genWeight;
-                
                 int puNUmmc=int(puTrue->at(0)*10);
                 int puNUmdata=int(puTrue->at(0)*10);
                 float PUMC_=HistoPUMC->GetBinContent(puNUmmc+1);
@@ -365,8 +376,7 @@ int main(int argc, char** argv) {
                 
                 if (! MuPtCut || !MuIdIso ) continue;
                 
-                
-                float LepCor=getCorrFactorMuon74X(isData,  muPt->at(imu), muEta->at(imu) , HistoMuId,HistoMuIso,HistoMuTrg);
+                float LepCor=getCorrFactorMuon80X(isData,  muPt->at(imu), muEta->at(imu) , HistoMuId,HistoMuIso,HistoMuTrg,HistoMuTrack);
                 
                 
                 TLorentzVector Mu4Momentum, Tau4Momentum, Jet4Momentum,ExtraMu4Momentum, ExtraEle4Momentum,KJet4Momentum,LQ;

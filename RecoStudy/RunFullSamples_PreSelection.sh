@@ -23,6 +23,7 @@ Date=`printf "${Run_Type}_%s\n" $Execute_Date`
 export Working_Dir=`pwd`
 export AFS_SampleLoc=$Working_Dir/../ROOT80X
 export EOS_SampleLoc=/eos/cms/store/user/mnaseri/Codex_DK
+#export EOS_SampleLoc=" "
 
 if [ "${Input_Loc}" == "AFS" ];then
      export SampleLoc=$AFS_SampleLoc
@@ -31,7 +32,7 @@ elif [ "${Input_Loc}" == "EOS" ];then
      export SampleLoc=$EOS_SampleLoc
      printf "The EOS default directory for input files is %s.\n" $EOS_SampleLoc
      RootName_Prefix=root://eoscms/
-   alias  list='eos ls'
+     alias  list='ls'
 else
     echo Please insert the valid second argument for location of input files: EOS or AFS ! 
     exit 1
